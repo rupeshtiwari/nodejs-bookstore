@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('./db');
+const db = require('../utils/db');
 const jwtHelper = require('./jwtHelper');
 
 const app = express();

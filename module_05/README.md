@@ -153,3 +153,19 @@ console.log('Decrypted:', decrypted);
 
 
 ![Alt text](image-3.png)
+
+
+## Checklist
+
+- What new npm packages to install for this module?
+- What are the additional libraries I need to keep up to date? like update curl, verify node.js server is etup to use TLS1.2 or TLS 1.3
+  ```
+  brew upgrade curl
+  ``` 
+- To check your TLS versio n run below script
+ ```
+ openssl s_client -connect localhost:3000
+
+ ## output 
+ Protocol  : TLSv1.3
+ ```
