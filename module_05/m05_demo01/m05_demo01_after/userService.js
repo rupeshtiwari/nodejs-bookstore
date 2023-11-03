@@ -1,45 +1,38 @@
 const express = require('express');
-const rateLimit = require('express-rate-limit');
-const axios = require('axios'); // Add axios for making requests to UserService
+const bodyParser = require('body-parser');
+const db = require('./db');
+const jwtHelper = require('./jwtHelper');
 
 const app = express();
-const PORT = 3000;
+app.use(bodyParser.json());
 
-// Rate limiting middleware
-const limiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minute
-  max: 100, // limit each IP to 100 requests per windowMs
+app.post('/addUser', (req, res) => {
+  const { username, password, settings } = req.body;
+  db.addUser({ username, password, settings });
+  res.status(201).send('User added successfully');
 });
 
-// Apply rate limiting to the API routes
-app.use('/api/', limiter);
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  const user = db.getUser(username);
 
-// Forward requests to the UserService
-const userServiceUrl = 'http://localhost:3000'; // Replace with your UserService URL
-
-app.all('/api/*', async (req, res) => {
-  // You can add logic here to route requests to different services based on the route path
-  const targetUrl = `${userServiceUrl}${req.originalUrl}`;
-
-  try {
-    const response = await axios({
-      method: req.method,
-      url: targetUrl,
-      data: req.body,
-    });
-
-    res.status(response.status).send(response.data);
-  } catch (error) {
-    console.error(
-      'Request failed. Error:',
-      error.response ? error.response.status : error.message
-    );
-    res
-      .status(error.response ? error.response.status : 500)
-      .send('Internal Server Error');
+  if (!user || user.password !== password) {
+    return res.status(401).send('Invalid credentials');
   }
+
+  const token = jwtHelper.generateToken(user);
+  res.json({ token });
 });
 
-app.listen(PORT, () => {
-  console.log(`Secure API Gateway running on http://localhost:${PORT}`);
+// Protected route to fetch user's settings
+app.get('/userSettings', jwtHelper.validateToken, (req, res) => {
+  const user = db.getUser(req.user.userId);
+  if (!user) {
+    return res.status(404).send('User not found');
+  }
+  res.json(user.settings);
+});
+
+app.listen(3000, () => {
+  console.log('UserService with JWT validation running on port 3000');
 });
