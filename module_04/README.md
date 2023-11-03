@@ -1,155 +1,178 @@
-#### Clip 2: Authentication and Authorization (10 mins)
+### Module 3: Scaling and Optimizing Your Microservices
 
-**Description**: Dive into securing microservices using authentication and authorization.
+#### Learning Goals:
 
-**Concepts Learned**:
+-   Learn strategies to scale microservices and optimize their performance.
 
--   JWT (JSON Web Tokens)
--   OAuth2.0
--   Role-Based Access Control
+#### Concepts Covered:
 
-**Demo**: Implementing JWT authentication for the BookStoreHub.
+-   Load Balancing
+-   Service Discovery
+-   Database Sharding
+-   Caching
 
-**Demo Initial**:
+#### Initial Setup:
 
--   Introduction to JWT and its significance in microservices.
--   Explanation of how JWT works.
+1.  Ensure you have Node.js and npm installed.
+2.  Install the required npm packages:
+3.  Set up a PostgreSQL database and create the necessary tables.
 
-**Demo Code**:
+#### Introduction to Microservices Scaling:
 
-```js
-const jwt = require('jsonwebtoken');
+**Concepts**:
 
-// Create a JWT token
-const token = jwt.sign({ userId: '12345' }, 'secretKey', { expiresIn: '1h' });
+-   Why scale?
+-   Horizontal vs. Vertical scaling.
 
-// Verify JWT token
-jwt.verify(token, 'secretKey', (err, decoded) => {
-  if (err) {
-    console.error('Token verification failed:', err);
-  } else {
-    console.log('Decoded JWT:', decoded);
-  }
-});
+#### Load Balancing in Microservices:
 
-```
+**Before Code**:
 
+Here's a simple Express server without load balancing:
 
-**After Code Explanation**:
-
--   The code demonstrates how to create and verify a JWT token.
--   JWTs are used for user authentication and ensuring data integrity.
-
-**Steps to Run Demo Source Code**:
-
-1.  Install the `jsonwebtoken` package: `npm install jsonwebtoken`
-2.  Save the above code in a file named `jwtDemo.js`.
-3.  Run the code using the command: `node jwtDemo.js`
-4.  Observe the generated JWT and its decoded version in the console.
-
----
-
-**Module 4: Microservices Security Best Practices** **Demo 2: Implementing Rate Limiting with API Gateway**
-
-**Learning Goals:** Understand the importance of rate limiting in microservices security and how to implement it using an API Gateway.
-
-**Concepts Covered:** Rate Limiting, API Gateway, Security Policies.
-
-**Total Time:** 10 mins
-
-**Description:** In this demo, we'll explore one of the essential security practices in microservices architecture – Rate Limiting. Rate limiting helps prevent abuse and overuse of your microservices by limiting the number of requests from a client within a specific time frame.
-
-**Before Code:** We have an API Gateway that routes requests to various services. However, without rate limiting, a client could potentially flood our services with requests, leading to performance issues and potential service disruptions.
-
-**Code:** We'll modify our API Gateway to include rate limiting for incoming requests. Specifically, we'll use the 'express-rate-limit' middleware to enforce a limit on the number of requests a client can make to our services within a minute.
-
- 
-
-```js
+```plaintext
 const express = require('express');
-const rateLimit = require('express-rate-limit');
 const app = express();
-const PORT = 3000;
 
-// Rate limiting middleware
-const limiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minute
-  max: 100, // limit each IP to 100 requests per windowMs
+app.get('/', (req, res) => {
+    res.send('Hello from Server!');
 });
 
-// Apply rate limiting to the API routes
-app.use('/api/', limiter);
-
-app.all('/api/*', (req, res) => {
-  // Forward the request to the respective service
-  // For simplicity, just sending a response here
-  res.send('Request forwarded to service with security policies!');
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
 });
 
-app.listen(PORT, () => {
-  console.log(`Secure API Gateway running on http://localhost:${PORT}`);
-});`` 
 ```
-**After Code:** With rate limiting in place, our API Gateway now ensures that no client can make more than 100 requests per minute. If a client exceeds this limit, they will receive a '429 Too Many Requests' error.
 
-**Demo:** During the demo, we'll run a flood of requests to our API Gateway to show how rate limiting works in practice. We'll observe that when the limit is exceeded, clients receive a '429' error.
+**After Code**:
 
-**Summary:** Rate limiting is a crucial security practice in microservices architecture. It helps protect your services from abuse and ensures fair usage of resources. By implementing rate limiting in your API Gateway, you can enhance the security and stability of your microservices.
+To implement load balancing, we'll use a reverse proxy like NGINX. Here's a basic NGINX configuration to load balance between two servers:
 
+```plaintext
+http {
+    upstream backend {
+        server localhost:3000;
+        server localhost:3001;
+    }
 
----
+    server {
+        listen 80;
 
-#### Clip 4: Data Encryption and Secure Communication (8 mins)
+        location / {
+            proxy_pass http://backend;
+        }
+    }
+}
 
-**Description**: Techniques to ensure data security and secure communication between services.
+```
 
 **Concepts Learned**:
 
--   Data Encryption
--   HTTPS
--   Mutual TLS
+-   The role of load balancers in distributing traffic.
+-   Setting up a basic load balancer using NGINX.
 
-**Demo**: Implementing data encryption for sensitive data in the BookStoreHub.
+#### Service Discovery Patterns:
 
-**Demo Initial**:
+**Before Code**:
 
--   Introduction to data encryption and its importance.
--   Explanation of symmetric and asymmetric encryption.
+A simple service that doesn't have service discovery implemented:
 
-**Demo Code**:
+```plaintext
+const express = require('express');
+const app = express();
 
-```javascript
-const crypto = require('crypto');
+app.get('/service', (req, res) => {
+    res.send('Service response');
+});
 
-const secret = 'bookStoreSecret';
-const text = 'SensitiveData';
-
-// Encrypt data
-const cipher = crypto.createCipher('aes-256-cbc', secret);
-let encrypted = cipher.update(text, 'utf8', 'hex');
-encrypted += cipher.final('hex');
-
-// Decrypt data
-const decipher = crypto.createDecipher('aes-256-cbc', secret);
-let decrypted = decipher.update(encrypted, 'hex', 'utf8');
-decrypted += decipher.final('utf8');
-
-console.log('Encrypted:', encrypted);
-console.log('Decrypted:', decrypted);
+app.listen(3001, () => {
+    console.log('Service running on port 3001');
+});
 
 ```
 
+**After Code**:
 
-**After Code Explanation**:
+Implementing service discovery using a simple registry:
 
--   The code demonstrates symmetric encryption using the AES algorithm.
--   Data is encrypted and then decrypted to its original form.
+```plaintext
+const services = {
+    service1: 'http://localhost:3001',
+    service2: 'http://localhost:3002'
+};
 
-**Steps to Run Demo Source Code**:
+app.get('/discover/:serviceName', (req, res) => {
+    const service = services[req.params.serviceName];
+    if (service) {
+        res.send(service);
+    } else {
+        res.status(404).send('Service not found');
+    }
+});
 
-1.  Save the above code in a file named `encryptionDemo.js`.
-2.  Run the code using the command: `node encryptionDemo.js`
-3.  Observe the encrypted data and its decrypted version in the console.
+```
 
+**Concepts Learned**:
 
-![Alt text](image-3.png)
+-   The importance of service discovery in a microservices architecture.
+-   Implementing a basic service registry.
+
+#### Database Sharding and Caching:
+
+**Before Code**:
+
+A simple database connection without sharding:
+
+```plaintext
+const { Client } = require('pg');
+const client = new Client({
+    connectionString: 'postgres://user:password@localhost:5432/mydb'
+});
+client.connect();
+
+```
+
+**After Code**:
+
+Implementing basic database sharding logic:
+
+```plaintext
+const shard1 = new Client({
+    connectionString: 'postgres://user:password@localhost:5432/shard1'
+});
+const shard2 = new Client({
+    connectionString: 'postgres://user:password@localhost:5432/shard2'
+});
+
+const getShard = (userId) => {
+    return userId % 2 === 0 ? shard1 : shard2;
+};
+
+```
+
+**Concepts Learned**:
+
+-   The need for database sharding in large-scale applications.
+-   Implementing basic sharding logic at the application level.
+
+#### Conclusion:
+
+In this module, we explored various strategies to scale and optimize microservices. From load balancing to service discovery and database sharding, we delved deep into the techniques that allow for efficient and scalable microservice architectures.
+
+```plaintext
+npm install express pg
+```
+
+The code you provided is using the `pg` package in Node.js to connect to PostgreSQL databases. The `pg` package is a client library that allows Node.js applications to communicate with PostgreSQL databases.
+
+To make the code work:
+
+**Install the** `**pg**` **package**: This can be done using npm (Node.js package manager) with the command `npm install pg`. This will allow your Node.js application to use the PostgreSQL client library to connect to a PostgreSQL database.
+
+**Install PostgreSQL on your computer**: The `pg` package is just a client library. You also need to have PostgreSQL installed on your computer (or accessible from your computer if it’s hosted elsewhere). The connection strings you provided (`'postgres://user:password@localhost:5432/shard1'` and `'postgres://user:password@localhost:5432/shard2'`) indicate that you’re trying to connect to PostgreSQL databases running on your local machine (`localhost`) on the default PostgreSQL port (`5432`). The databases are named `shard1` and `shard2`.
+
+**Setup the PostgreSQL databases**: After installing PostgreSQL, you’ll need to create the `shard1` and `shard2` databases and set up the necessary tables and data. You’ll also need to ensure that the `user` and `password` in your connection strings have the necessary permissions to access and modify these databases.
+
+**Run the Node.js application**: Once the above steps are completed, you can run your Node.js application, and it should be able to connect to the PostgreSQL databases using the provided connection strings.
+
+In summary, both the `pg` package in Node.js and the PostgreSQL database software need to be set up for the code to work. The `pg`

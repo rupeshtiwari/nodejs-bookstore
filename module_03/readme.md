@@ -1,178 +1,264 @@
-### Module 3: Scaling and Optimizing Your Microservices
+Demo 1: Implementing Event Sourcing for the BookStoreHub's Order Service
+------------------------------------------------------------------------
 
-#### Learning Goals:
+### Initial Setup:
 
--   Learn strategies to scale microservices and optimize their performance.
+1.  Initialize a new Node.js project: `npm init -y`
+2.  Install required packages: `npm install express`
+### Initial Code:
 
-#### Concepts Covered:
+**orderService.js**:
 
--   Load Balancing
--   Service Discovery
--   Database Sharding
--   Caching
-
-#### Initial Setup:
-
-1.  Ensure you have Node.js and npm installed.
-2.  Install the required npm packages:
-3.  Set up a PostgreSQL database and create the necessary tables.
-
-#### Introduction to Microservices Scaling:
-
-**Concepts**:
-
--   Why scale?
--   Horizontal vs. Vertical scaling.
-
-#### Load Balancing in Microservices:
-
-**Before Code**:
-
-Here's a simple Express server without load balancing:
-
-```plaintext
+```javascript
 const express = require('express');
-const app = express();
+const orderService = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello from Server!');
+orderService.use(express.json());
+
+orderService.post('/order', (req, res) => {
+    const order = {
+        id: Date.now(),
+        items: req.body.items,
+        total: req.body.items.reduce((acc, item) => acc + item.price, 0)
+    };
+    res.status(201).send(order);
 });
 
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
+orderService.listen(3003, () => {
+    console.log('Order Service started on port 3003');
 });
 
 ```
 
-**After Code**:
+### After Code:
 
-To implement load balancing, we'll use a reverse proxy like NGINX. Here's a basic NGINX configuration to load balance between two servers:
+Incorporating event sourcing:
 
-```plaintext
-http {
-    upstream backend {
-        server localhost:3000;
-        server localhost:3001;
-    }
 
-    server {
-        listen 80;
+**orderService.js**:
 
-        location / {
-            proxy_pass http://backend;
+```javascript
+const express = require('express');
+const orderService = express();
+const eventStore = [];
+
+orderService.use(express.json());
+
+orderService.post('/order', (req, res) => {
+    const orderCreatedEvent = {
+        type: 'OrderCreated',
+        data: {
+            id: Date.now(),
+            items: req.body.items,
+            total: req.body.items.reduce((acc, item) => acc + item.price, 0)
         }
+    };
+    eventStore.push(orderCreatedEvent);
+    res.status(201).send(orderCreatedEvent.data);
+});
+
+orderService.listen(3003, () => {
+    console.log('Order Service started on port 3003');
+});
+
+```
+### Endpoint:
+
+`POST http://localhost:3003/order`
+
+### Payload:
+```json
+{
+    "items": [
+        {
+            "id": 1,
+            "title": "Book A",
+            "price": 10
+        },
+        {
+            "id": 2,
+            "title": "Book B",
+            "price": 15
+        }
+    ]
+}
+```
+
+To retrieve all the events stored in the event store:
+
+### Endpoint:
+
+`GET http://localhost:3004/events`
+
+
+Demo 2: Setting Up an Event Store for the BookStoreHub
+------------------------------------------------------
+
+### Initial Setup:
+
+1.  Use the existing Node.js project.
+2.  Install required packages: `npm install express`
+### Initial Code:
+
+**eventStoreService.js**:
+```javascript
+const express = require('express');
+const eventStoreService = express();
+
+eventStoreService.use(express.json());
+
+eventStoreService.listen(3004, () => {
+    console.log('Event Store Service started on port 3004');
+});
+
+```
+### After Code:
+
+Incorporating the event store:
+
+
+**eventStoreService.js**:
+
+```javascript
+const express = require('express');
+const eventStoreService = express();
+
+const events = [];
+
+eventStoreService.use(express.json());
+
+eventStoreService.post('/events', (req, res) => {
+    events.push(req.body);
+    res.status(201).send({ message: 'Event stored successfully!' });
+});
+
+eventStoreService.get('/events', (req, res) => {
+    res.json(events);
+});
+
+eventStoreService.listen(3004, () => {
+    console.log('Event Store Service started on port 3004');
+});
+
+```
+### Endpoint:
+
+`POST http://localhost:3004/events`
+
+### Payload:
+```json
+{
+    "type": "OrderCreated",
+    "data": {
+        "orderId": 12345,
+        "items": [
+            {
+                "id": 1,
+                "title": "Book A",
+                "price": 10
+            }
+        ]
     }
 }
-
 ```
 
-**Concepts Learned**:
 
--   The role of load balancers in distributing traffic.
--   Setting up a basic load balancer using NGINX.
+Demo 3: Creating Projections for the BookStoreHub's Inventory Service
+---------------------------------------------------------------------
+### Initial Setup:
 
-#### Service Discovery Patterns:
+1.  Use the existing Node.js project.
+2.  Install required packages: `npm install express`
 
-**Before Code**:
 
-A simple service that doesn't have service discovery implemented:
+### Initial Code:
 
-```plaintext
+**inventoryService.js**:
+```javascript
+
 const express = require('express');
-const app = express();
+const inventoryService = express();
 
-app.get('/service', (req, res) => {
-    res.send('Service response');
+const inventory = {};
+
+inventoryService.use(express.json());
+
+inventoryService.get('/inventory', (req, res) => {
+    res.json(inventory);
 });
 
-app.listen(3001, () => {
-    console.log('Service running on port 3001');
+inventoryService.listen(3005, () => {
+    console.log('Inventory Service started on port 3005');
 });
 
 ```
 
-**After Code**:
+### After Code:
 
-Implementing service discovery using a simple registry:
+Incorporating projections:
 
-```plaintext
-const services = {
-    service1: 'http://localhost:3001',
-    service2: 'http://localhost:3002'
-};
 
-app.get('/discover/:serviceName', (req, res) => {
-    const service = services[req.params.serviceName];
-    if (service) {
-        res.send(service);
-    } else {
-        res.status(404).send('Service not found');
+**inventoryService.js**:
+
+```javascript
+const express = require('express');
+const inventoryService = express();
+
+const inventory = {};
+
+inventoryService.use(express.json());
+
+// Listen to the event store and update the inventory based on events
+const updateInventory = (event) => {
+    if (event.type === 'OrderCreated') {
+        event.data.items.forEach(item => {
+            if (!inventory[item.id]) {
+                inventory[item.id] = { ...item, count: 0 };
+            }
+            inventory[item.id].count -= 1;
+        });
     }
-});
-
-```
-
-**Concepts Learned**:
-
--   The importance of service discovery in a microservices architecture.
--   Implementing a basic service registry.
-
-#### Database Sharding and Caching:
-
-**Before Code**:
-
-A simple database connection without sharding:
-
-```plaintext
-const { Client } = require('pg');
-const client = new Client({
-    connectionString: 'postgres://user:password@localhost:5432/mydb'
-});
-client.connect();
-
-```
-
-**After Code**:
-
-Implementing basic database sharding logic:
-
-```plaintext
-const shard1 = new Client({
-    connectionString: 'postgres://user:password@localhost:5432/shard1'
-});
-const shard2 = new Client({
-    connectionString: 'postgres://user:password@localhost:5432/shard2'
-});
-
-const getShard = (userId) => {
-    return userId % 2 === 0 ? shard1 : shard2;
 };
 
+// Mock endpoint to simulate receiving events from the event store
+inventoryService.post('/events', (req, res) => {
+    updateInventory(req.body);
+    res.status(200).send({ message: 'Inventory updated successfully!' });
+});
+
+inventoryService.get('/inventory', (req, res) => {
+    res.json(inventory);
+});
+
+inventoryService.listen(3005, () => {
+    console.log('Inventory Service started on port 3005');
+});
+
 ```
 
-**Concepts Learned**:
+### Endpoint:
 
--   The need for database sharding in large-scale applications.
--   Implementing basic sharding logic at the application level.
+`POST http://localhost:3005/events`
 
-#### Conclusion:
-
-In this module, we explored various strategies to scale and optimize microservices. From load balancing to service discovery and database sharding, we delved deep into the techniques that allow for efficient and scalable microservice architectures.
-
-```plaintext
-npm install express pg
+### Payload:
+```json
+{
+    "type": "OrderCreated",
+    "data": {
+        "orderId": 12345,
+        "items": [
+            {
+                "id": 1,
+                "title": "Book A",
+                "price": 10
+            }
+        ]
+    }
+}
 ```
+To retrieve the updated inventory:
 
-The code you provided is using the `pg` package in Node.js to connect to PostgreSQL databases. The `pg` package is a client library that allows Node.js applications to communicate with PostgreSQL databases.
-
-To make the code work:
-
-**Install the** `**pg**` **package**: This can be done using npm (Node.js package manager) with the command `npm install pg`. This will allow your Node.js application to use the PostgreSQL client library to connect to a PostgreSQL database.
-
-**Install PostgreSQL on your computer**: The `pg` package is just a client library. You also need to have PostgreSQL installed on your computer (or accessible from your computer if it’s hosted elsewhere). The connection strings you provided (`'postgres://user:password@localhost:5432/shard1'` and `'postgres://user:password@localhost:5432/shard2'`) indicate that you’re trying to connect to PostgreSQL databases running on your local machine (`localhost`) on the default PostgreSQL port (`5432`). The databases are named `shard1` and `shard2`.
-
-**Setup the PostgreSQL databases**: After installing PostgreSQL, you’ll need to create the `shard1` and `shard2` databases and set up the necessary tables and data. You’ll also need to ensure that the `user` and `password` in your connection strings have the necessary permissions to access and modify these databases.
-
-**Run the Node.js application**: Once the above steps are completed, you can run your Node.js application, and it should be able to connect to the PostgreSQL databases using the provided connection strings.
-
-In summary, both the `pg` package in Node.js and the PostgreSQL database software need to be set up for the code to work. The `pg`
+### Endpoint:
+```json
+GET http://localhost:3005/inventory
+```

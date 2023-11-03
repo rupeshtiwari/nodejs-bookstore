@@ -1,264 +1,178 @@
-Demo 1: Implementing Event Sourcing for the BookStoreHub's Order Service
-------------------------------------------------------------------------
+Demo: Defining Bounded Contexts for the BookStoreHub Platform
+-------------------------------------------------------------
 
-### Initial Setup:
-
-1.  Initialize a new Node.js project: `npm init -y`
-2.  Install required packages: `npm install express`
 ### Initial Code:
 
-**orderService.js**:
+In the initial phase, you might have a monolithic application where everything is bundled together without clear boundaries.
+
+**bookStore.js**:
+
+
 
 ```javascript
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+app.post('/createBook', (req, res) => {
+    // Logic to create a book
+});
+
+app.post('/createOrder', (req, res) => {
+    // Logic to create an order
+});
+
+app.listen(3000, () => {
+    console.log('BookStoreHub started on port 3000');
+});
+
+```
+
+### After Code:
+
+After introducing the concept of bounded contexts, you separate the concerns into distinct services, each representing a different context.
+
+**bookService.js**:
+```javascript
+const express = require('express');
+const bookService = express();
+
+bookService.use(express.json());
+
+bookService.post('/createBook', (req, res) => {
+    // Logic to create a book
+});
+
+bookService.listen(3001, () => {
+    console.log('Book Service started on port 3001');
+});
+
+```
+**orderService.js**:
+```javascript
+
+
 const express = require('express');
 const orderService = express();
 
 orderService.use(express.json());
 
-orderService.post('/order', (req, res) => {
-    const order = {
-        id: Date.now(),
-        items: req.body.items,
-        total: req.body.items.reduce((acc, item) => acc + item.price, 0)
-    };
-    res.status(201).send(order);
+orderService.post('/createOrder', (req, res) => {
+    // Logic to create an order
 });
 
-orderService.listen(3003, () => {
-    console.log('Order Service started on port 3003');
+orderService.listen(3002, () => {
+    console.log('Order Service started on port 3002');
 });
-
 ```
-
-### After Code:
-
-Incorporating event sourcing:
+**Learning Outcome**: The audience will understand the importance of defining clear boundaries in a microservices architecture. They'll learn how to separate concerns and create distinct services for each bounded context.
 
 
-**orderService.js**:
-
-```javascript
-const express = require('express');
-const orderService = express();
-const eventStore = [];
-
-orderService.use(express.json());
-
-orderService.post('/order', (req, res) => {
-    const orderCreatedEvent = {
-        type: 'OrderCreated',
-        data: {
-            id: Date.now(),
-            items: req.body.items,
-            total: req.body.items.reduce((acc, item) => acc + item.price, 0)
-        }
-    };
-    eventStore.push(orderCreatedEvent);
-    res.status(201).send(orderCreatedEvent.data);
-});
-
-orderService.listen(3003, () => {
-    console.log('Order Service started on port 3003');
-});
-
-```
-### Endpoint:
-
-`POST http://localhost:3003/order`
-
-### Payload:
-```json
-{
-    "items": [
-        {
-            "id": 1,
-            "title": "Book A",
-            "price": 10
-        },
-        {
-            "id": 2,
-            "title": "Book B",
-            "price": 15
-        }
-    ]
-}
-```
-
-To retrieve all the events stored in the event store:
-
-### Endpoint:
-
-`GET http://localhost:3004/events`
-
-
-Demo 2: Setting Up an Event Store for the BookStoreHub
-------------------------------------------------------
-
-### Initial Setup:
-
-1.  Use the existing Node.js project.
-2.  Install required packages: `npm install express`
-### Initial Code:
-
-**eventStoreService.js**:
-```javascript
-const express = require('express');
-const eventStoreService = express();
-
-eventStoreService.use(express.json());
-
-eventStoreService.listen(3004, () => {
-    console.log('Event Store Service started on port 3004');
-});
-
-```
-### After Code:
-
-Incorporating the event store:
-
-
-**eventStoreService.js**:
-
-```javascript
-const express = require('express');
-const eventStoreService = express();
-
-const events = [];
-
-eventStoreService.use(express.json());
-
-eventStoreService.post('/events', (req, res) => {
-    events.push(req.body);
-    res.status(201).send({ message: 'Event stored successfully!' });
-});
-
-eventStoreService.get('/events', (req, res) => {
-    res.json(events);
-});
-
-eventStoreService.listen(3004, () => {
-    console.log('Event Store Service started on port 3004');
-});
-
-```
-### Endpoint:
-
-`POST http://localhost:3004/events`
-
-### Payload:
-```json
-{
-    "type": "OrderCreated",
-    "data": {
-        "orderId": 12345,
-        "items": [
-            {
-                "id": 1,
-                "title": "Book A",
-                "price": 10
-            }
-        ]
-    }
-}
-```
-
-
-Demo 3: Creating Projections for the BookStoreHub's Inventory Service
----------------------------------------------------------------------
-### Initial Setup:
-
-1.  Use the existing Node.js project.
-2.  Install required packages: `npm install express`
-
+Demo: Designing the Book Entity for the BookStoreHub
+----------------------------------------------------
 
 ### Initial Code:
 
-**inventoryService.js**:
+Initially, a book might just be represented as a simple object without any behavior.
+
+**book.js**:
+
+
 ```javascript
-
-const express = require('express');
-const inventoryService = express();
-
-const inventory = {};
-
-inventoryService.use(express.json());
-
-inventoryService.get('/inventory', (req, res) => {
-    res.json(inventory);
-});
-
-inventoryService.listen(3005, () => {
-    console.log('Inventory Service started on port 3005');
-});
+class Book {
+    constructor(title, author, price) {
+        this.title = title;
+        this.author = author;
+        this.price = price;
+    }
+}
 
 ```
+
 
 ### After Code:
 
-Incorporating projections:
+After introducing DDD principles, the book entity might encapsulate behavior and ensure invariants.
 
-
-**inventoryService.js**:
+**bookEntity.js**:
 
 ```javascript
-const express = require('express');
-const inventoryService = express();
-
-const inventory = {};
-
-inventoryService.use(express.json());
-
-// Listen to the event store and update the inventory based on events
-const updateInventory = (event) => {
-    if (event.type === 'OrderCreated') {
-        event.data.items.forEach(item => {
-            if (!inventory[item.id]) {
-                inventory[item.id] = { ...item, count: 0 };
-            }
-            inventory[item.id].count -= 1;
-        });
+class Book {
+    constructor(title, author, price) {
+        this.title = title;
+        this.author = author;
+        this.setPrice(price);
     }
-};
 
-// Mock endpoint to simulate receiving events from the event store
-inventoryService.post('/events', (req, res) => {
-    updateInventory(req.body);
-    res.status(200).send({ message: 'Inventory updated successfully!' });
-});
+    setPrice(price) {
+        if (price <= 0) {
+            throw new Error('Price must be positive');
+        }
+        this.price = price;
+    }
 
-inventoryService.get('/inventory', (req, res) => {
-    res.json(inventory);
-});
-
-inventoryService.listen(3005, () => {
-    console.log('Inventory Service started on port 3005');
-});
-
-```
-
-### Endpoint:
-
-`POST http://localhost:3005/events`
-
-### Payload:
-```json
-{
-    "type": "OrderCreated",
-    "data": {
-        "orderId": 12345,
-        "items": [
-            {
-                "id": 1,
-                "title": "Book A",
-                "price": 10
-            }
-        ]
+    applyDiscount(discountPercentage) {
+        if (discountPercentage < 0 || discountPercentage > 100) {
+            throw new Error('Invalid discount percentage');
+        }
+        this.price = this.price * (1 - discountPercentage / 100);
     }
 }
-```
-To retrieve the updated inventory:
 
-### Endpoint:
-```json
-GET http://localhost:3005/inventory
 ```
+
+
+
+Demo: Implementing a Price Value Object for Books
+-------------------------------------------------
+
+### Initial Code:
+
+Initially, the price might just be represented as a simple number.
+
+**book.js**:
+
+```javascript
+class Book {
+    constructor(title, author, price) {
+        this.title = title;
+        this.author = author;
+        this.price = price;
+    }
+}
+
+```
+
+
+### After Code:
+
+After introducing DDD principles, the price is represented as a value object, ensuring immutability and encapsulating behavior.
+
+**priceValueObject.js**:
+
+```javascript
+class Price {
+    constructor(amount) {
+        if (amount <= 0) {
+            throw new Error('Price must be positive');
+        }
+        this.amount = amount;
+    }
+
+    add(otherPrice) {
+        return new Price(this.amount + otherPrice.amount);
+    }
+
+    subtract(otherPrice) {
+        return new Price(this.amount - otherPrice.amount);
+    }
+
+    equals(otherPrice) {
+        return this.amount === otherPrice.amount;
+    }
+}
+
+```
+
+**Learning Outcome**: The audience will grasp the concept of value objects in DDD. They'll learn how value objects are immutable and how they encapsulate domain logic related to specific values.
