@@ -1,0 +1,115 @@
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:09:24.447Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T03:13:32.418Z"}
+{"level":"info","message":"BookStoreHub running on port 3003","timestamp":"2023-11-12T03:13:42.587Z"}
+{"level":"info","message":"Rewards microservice running on port 3002","timestamp":"2023-11-12T03:13:46.564Z"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:14:01.216Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:14:01.233Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:14:01.233Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:14:01.233Z"}
+{"level":"info","message":"Rewards added:","rewards":40,"timestamp":"2023-11-12T03:14:01.237Z","userId":"user123"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699758841215,"timestamp":"2023-11-12T03:14:01.238Z","userId":"user123"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:17:03.923Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:17:03.928Z","userId":"user123"}
+{"level":"info","message":"Rewards added:","rewards":80,"timestamp":"2023-11-12T03:17:03.930Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:17:03.929Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:17:03.929Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759023923,"timestamp":"2023-11-12T03:17:03.930Z","userId":"user123"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T03:17:41.932Z"}
+{"level":"info","message":"Rewards microservice running on port 3002","timestamp":"2023-11-12T03:18:10.581Z"}
+{"level":"info","message":"BookStoreHub running on port 3003","timestamp":"2023-11-12T03:18:15.343Z"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3001/rewards","timestamp":"2023-11-12T03:18:28.698Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Monolith Rewards Service: Received POST request:","timestamp":"2023-11-12T03:18:28.716Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:18:28.716Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:18:28.716Z"}
+{"level":"info","message":"Rewards added:","points":40,"timestamp":"2023-11-12T03:18:28.721Z","userId":"user123"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759108698,"timestamp":"2023-11-12T03:18:28.721Z","userId":"user123"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:18:42.851Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:18:42.863Z","userId":"user123"}
+{"level":"info","message":"Rewards added:","rewards":40,"timestamp":"2023-11-12T03:18:42.868Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:18:42.864Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:18:42.864Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759122851,"timestamp":"2023-11-12T03:18:42.868Z","userId":"user123"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:18:46.365Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:18:46.367Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:18:46.368Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:18:46.368Z"}
+{"level":"info","message":"Rewards added:","rewards":80,"timestamp":"2023-11-12T03:18:46.369Z","userId":"user123"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759126365,"timestamp":"2023-11-12T03:18:46.369Z","userId":"user123"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3001/rewards","timestamp":"2023-11-12T03:18:49.733Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Monolith Rewards Service: Received POST request:","timestamp":"2023-11-12T03:18:49.735Z","userId":"user123"}
+{"level":"info","message":"Rewards added:","points":80,"timestamp":"2023-11-12T03:18:49.737Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:18:49.736Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:18:49.736Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759129733,"timestamp":"2023-11-12T03:18:49.737Z","userId":"user123"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:18:55.224Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:18:55.226Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:18:55.227Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:18:55.227Z"}
+{"level":"info","message":"Rewards added:","rewards":120,"timestamp":"2023-11-12T03:18:55.228Z","userId":"user123"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759135224,"timestamp":"2023-11-12T03:18:55.228Z","userId":"user123"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:21:46.641Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:21:46.644Z","userId":"user123"}
+{"level":"info","message":"Rewards added:","rewards":160,"timestamp":"2023-11-12T03:21:46.645Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:21:46.644Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:21:46.644Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759306640,"timestamp":"2023-11-12T03:21:46.646Z","userId":"user123"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3001/rewards","timestamp":"2023-11-12T03:24:36.318Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Monolith Rewards Service: Received POST request:","timestamp":"2023-11-12T03:24:36.322Z","userId":"user123"}
+{"level":"info","message":"Rewards added:","points":120,"timestamp":"2023-11-12T03:24:36.325Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:24:36.323Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:24:36.323Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759476317,"timestamp":"2023-11-12T03:24:36.325Z","userId":"user123"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:24:42.016Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:24:42.020Z","userId":"user123"}
+{"level":"info","message":"Rewards added:","rewards":200,"timestamp":"2023-11-12T03:24:42.021Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:24:42.020Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:24:42.020Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759482016,"timestamp":"2023-11-12T03:24:42.021Z","userId":"user123"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T03:26:36.572Z"}
+{"level":"info","message":"Rewards microservice running on port 3002","timestamp":"2023-11-12T03:26:41.322Z"}
+{"level":"info","message":"BookStoreHub running on port 3003","timestamp":"2023-11-12T03:26:46.375Z"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:26:58.158Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:26:58.175Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:26:58.175Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:26:58.175Z"}
+{"level":"info","message":"Rewards added:","rewards":40,"timestamp":"2023-11-12T03:26:58.181Z","userId":"user123"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759618157,"timestamp":"2023-11-12T03:26:58.182Z","userId":"user123"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:27:04.144Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:27:04.147Z","userId":"user123"}
+{"level":"info","message":"Rewards added:","rewards":80,"timestamp":"2023-11-12T03:27:04.149Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:27:04.147Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:27:04.148Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759624144,"timestamp":"2023-11-12T03:27:04.149Z","userId":"user123"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:27:08.063Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:27:08.070Z","userId":"user123"}
+{"level":"info","message":"Rewards added:","rewards":120,"timestamp":"2023-11-12T03:27:08.071Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:27:08.070Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:27:08.070Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759628063,"timestamp":"2023-11-12T03:27:08.072Z","userId":"user123"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T03:30:27.278Z"}
+{"level":"info","message":"Rewards microservice running on port 3002","timestamp":"2023-11-12T03:30:30.650Z"}
+{"level":"info","message":"BookStoreHub running on port 3003","timestamp":"2023-11-12T03:30:33.671Z"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:30:35.580Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:30:35.598Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:30:35.599Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:30:35.599Z"}
+{"level":"info","message":"Rewards added:","rewards":40,"timestamp":"2023-11-12T03:30:35.604Z","userId":"user123"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759835580,"timestamp":"2023-11-12T03:30:35.604Z","userId":"user123"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:30:49.951Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:30:49.955Z","userId":"user123"}
+{"level":"info","message":"Rewards added:","rewards":80,"timestamp":"2023-11-12T03:30:49.957Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:30:49.956Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:30:49.956Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759849951,"timestamp":"2023-11-12T03:30:49.957Z","userId":"user123"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3001/rewards","timestamp":"2023-11-12T03:30:55.654Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Monolith Rewards Service: Received POST request:","timestamp":"2023-11-12T03:30:55.668Z","userId":"user123"}
+{"level":"info","message":"Rewards added:","points":40,"timestamp":"2023-11-12T03:30:55.671Z","userId":"user123"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759855653,"timestamp":"2023-11-12T03:30:55.672Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:30:55.668Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:30:55.668Z"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3001/rewards","timestamp":"2023-11-12T03:33:06.221Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Monolith Rewards Service: Received POST request:","timestamp":"2023-11-12T03:33:06.225Z","userId":"user123"}
+{"level":"info","message":"Rewards added:","points":80,"timestamp":"2023-11-12T03:33:06.227Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:33:06.226Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:33:06.226Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759986221,"timestamp":"2023-11-12T03:33:06.228Z","userId":"user123"}
