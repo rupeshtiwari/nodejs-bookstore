@@ -10,15 +10,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+
+    "@opensearch-project/opensearch": "^2.4.0",
     "axios": "^1.6.1",
+    "elasticsearch": "^16.7.3",
     "express": "^4.18.2",
     "express-rate-limit": "^7.1.3",
-    "g": "^2.0.1",
+
     "https": "^1.0.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.3",
     "prom-client": "^15.0.0",
-    "winston": "^3.11.0",
-    "winston-elasticsearch": "^0.17.4"
+    "winston": "^3.11.0"
   }
 }

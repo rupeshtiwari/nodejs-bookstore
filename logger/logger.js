@@ -1,50 +1,71 @@
+
+const { Client } = require('@opensearch-project/opensearch');
 const winston = require('winston');
-require('winston-elasticsearch');
 
-// Configure Elasticsearch transport
-const esTransportOpts = {
-  level: 'debug', // Set the desired log level
-  index: 'my-node-app', // Elasticsearch index name
-  type: 'logs', // Elasticsearch document type
-  ensureMappingTemplate: true,
-  mappingTemplate: {
-    properties: {
-      timestamp: { type: 'date' },
-      level: { type: 'keyword' },
-      message: { type: 'text' },
-    },
-  },
-  clientOpts: {
-    node: 'https://localhost:9200', // Use HTTPS protocol
-    auth: {
-      username: 'admin', // Elasticsearch username
-      password: 'admin', // Elasticsearch password
-    },
-    ssl: {
-      rejectUnauthorized: false, // Ignore self-signed SSL certificate (for development)
-    },
-  },
-};
+ 
+const host = '127.0.0.1';
+const protocol = 'https'; // <-- Changing http to https worked.
+const ports = [9200, 9600];
+const auth = 'admin:admin'; // For testing only. Don't store credentials in code.
 
-const elasticsearchTransport = new winston.transports.Elasticsearch(
-  esTransportOpts
-);
-elasticsearchTransport.on('error', (err) => {
-  console.error('Error occurred in Elasticsearch transport:', err);
-  // Handle the error as needed
+// OpenSearch client configuration
+const opensearchClient = new Client({
+  nodes: [
+    protocol + '://' + auth + '@' + host + ':' + ports[0],
+    protocol + '://' + auth + '@' + host + ':' + ports[1],
+
+  ],
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
-// Create a Winston logger instance
+// Custom Winston transport for OpenSearch
+class OpenSearchTransport extends winston.Transport {
+  constructor(options) {
+    super(options);
+    this.name = 'opensearchTransport';
+    this.level = options.level || 'info';
+  }
+
+  log(info, callback) {
+    const logEntry = {
+      timestamp: new Date().toISOString(),
+      message: info.message,
+    };
+
+    // Index the log entry in OpenSearch
+    opensearchClient
+      .index({
+        index: 'bookstore-log', // Replace with your desired index name
+        body: logEntry,
+      })
+      .then((response) => {
+       // console.log('Log entry indexed:', response.body);
+      })
+      .catch((err) => {
+        console.error('Error indexing log entry:', err);
+      });
+
+    callback();
+  }
+}
+
+// Create a Winston logger instance with the custom OpenSearch transport
 const logger = winston.createLogger({
+  level: 'info',
   format: winston.format.combine(
     winston.format.timestamp(),
-    winston.format.json() // Use JSON formatting
+    winston.format.json()
   ),
   transports: [
-    elasticsearchTransport, // Elasticsearch transport
-    new winston.transports.Console(), // Console transport
     new winston.transports.File({ filename: 'app.log' }), // File transport
+    new OpenSearchTransport({ level: 'info' }), // Custom OpenSearch transport,
+    new winston.transports.Console(), // Console transport
   ],
 });
+
+// Log a test message to verify that logging is working
+logger.info('Logger initialized successfully.');
 
 module.exports = logger;

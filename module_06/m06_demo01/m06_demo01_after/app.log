@@ -113,3 +113,87 @@
 {"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:33:06.226Z"}
 {"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:33:06.226Z"}
 {"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699759986221,"timestamp":"2023-11-12T03:33:06.228Z","userId":"user123"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T03:39:45.487Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T03:39:45.492Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T03:39:49.779Z"}
+{"level":"info","message":"Rewards microservice running on port 3002","timestamp":"2023-11-12T03:39:49.785Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T03:39:54.404Z"}
+{"level":"info","message":"BookStoreHub running on port 3003","timestamp":"2023-11-12T03:39:54.410Z"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:40:08.905Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:40:08.923Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:40:08.923Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:40:08.923Z"}
+{"level":"info","message":"Rewards added:","rewards":40,"timestamp":"2023-11-12T03:40:08.928Z","userId":"user123"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699760408905,"timestamp":"2023-11-12T03:40:08.928Z","userId":"user123"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:40:47.487Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:40:47.490Z","userId":"user123"}
+{"level":"info","message":"Rewards added:","rewards":80,"timestamp":"2023-11-12T03:40:47.492Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:40:47.491Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:40:47.491Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699760447486,"timestamp":"2023-11-12T03:40:47.493Z","userId":"user123"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T03:40:52.146Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T03:40:52.149Z","userId":"user123"}
+{"level":"info","message":"Rewards added:","rewards":120,"timestamp":"2023-11-12T03:40:52.150Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T03:40:52.149Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T03:40:52.150Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699760452146,"timestamp":"2023-11-12T03:40:52.151Z","userId":"user123"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T03:58:59.145Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T03:58:59.157Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T04:01:28.793Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T04:01:28.828Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T04:03:05.750Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T04:03:05.785Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T04:08:13.812Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T04:08:13.847Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T04:10:10.161Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T04:10:10.195Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T04:13:54.229Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T04:13:54.236Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T04:14:00.929Z"}
+{"level":"info","message":"Rewards microservice running on port 3002","timestamp":"2023-11-12T04:14:00.934Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T04:14:03.607Z"}
+{"level":"info","message":"BookStoreHub running on port 3003","timestamp":"2023-11-12T04:14:03.612Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T05:06:12.246Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T05:06:12.257Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T05:10:23.923Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T05:10:23.933Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T05:17:22.301Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T05:17:22.313Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T05:17:42.666Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T05:17:42.701Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T05:29:24.775Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T05:29:24.813Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T05:43:14.055Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T05:43:14.067Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T06:25:47.172Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T06:25:47.185Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T06:26:47.430Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T06:26:47.441Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T06:27:32.939Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T06:27:32.949Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T06:33:24.925Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T06:33:24.962Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T06:35:16.884Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T06:35:16.916Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T06:40:39.114Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T06:40:39.145Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T06:41:43.241Z"}
+{"level":"info","message":"Rewards microservice running on port 3002","timestamp":"2023-11-12T06:41:43.272Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T06:42:13.667Z"}
+{"level":"info","message":"Rewards microservice running on port 3002","timestamp":"2023-11-12T06:42:13.697Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T06:42:23.713Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T06:42:23.744Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T06:42:33.936Z"}
+{"level":"info","message":"BookStoreHub running on port 3003","timestamp":"2023-11-12T06:42:33.967Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T06:43:02.788Z"}
+{"level":"info","message":"Rewards microservice running on port 3002","timestamp":"2023-11-12T06:43:02.818Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T06:43:05.891Z"}
+{"level":"info","message":"BookStoreHub running on port 3003","timestamp":"2023-11-12T06:43:05.920Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T06:43:15.025Z"}
+{"level":"info","message":"Monolith Rewards service running on port 3001","timestamp":"2023-11-12T06:43:15.055Z"}
+{"level":"info","message":"Routing POST rewards request to: http://localhost:3002/rewards","timestamp":"2023-11-12T06:43:28.033Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Rewards Service: Received POST request:","timestamp":"2023-11-12T06:43:28.057Z","userId":"user123"}
+{"level":"info","message":"Total order amount for user user123: $400","timestamp":"2023-11-12T06:43:28.058Z"}
+{"level":"info","message":"Updated reward points for user user123: 40","timestamp":"2023-11-12T06:43:28.059Z"}
+{"level":"info","message":"Rewards added:","rewards":40,"timestamp":"2023-11-12T06:43:28.067Z","userId":"user123"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"Order created, payment processed, and rewards calculated","orderId":1699771408032,"timestamp":"2023-11-12T06:43:28.069Z","userId":"user123"}

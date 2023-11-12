@@ -142,6 +142,8 @@ To test the new `bookstorehub.js`, which uses a load balancer to route requests 
 
   - Expected Output: A successful response indicating that the order was created and rewards were processed. The output should also include whether the monolith or the microservice processed the rewards.
 
+![Alt text](image.png)
+
 **Step 4: Test Retrieving User Rewards**
 
   ```
