@@ -1,9 +1,8 @@
 const express = require('express');
-const app = express();
-app.use(express.json());
-
 // In-memory database
 const { orders, payments, rewards, orderHistory } = require('./db');
+const app = express();
+app.use(express.json());
 
 // Utility functions
 const calculateRewardPoints = (total) => {
@@ -29,18 +28,44 @@ app.post('/order', (req, res) => {
   orderHistory[userId].push(newOrder);
 
   // Calculate rewards
-  //TODO: This rewards calculation logic would be REMOVED during refactoring
   const points = calculateRewardPoints(total);
-  rewards[userId] = (rewards[userId] || 0) + points; //TODO: DELETED during refactoring
+  rewards[userId] = (rewards[userId] || 0) + points;
 
   // Process payment (simplified for this example)
   addPayment(userId, orderId, total);
 
-  // The response would be UPDATED to remove the points calculation
-  res.status(201).send({ message: 'Order created', order: newOrder }); //TODO: UPDATED: Removed 'points' from the response
+  res.status(201).send({ message: 'Order created', order: newOrder, points });
 });
 
-// Other routes remain unchanged...
+// Retrieve order history
+app.get('/order-history/:userId', (req, res) => {
+  const userOrders = orderHistory[req.params.userId];
+  if (userOrders) {
+    res.status(200).json(userOrders);
+  } else {
+    res.status(404).send('User order history not found.');
+  }
+});
+
+// Retrieve user rewards
+app.get('/rewards/:userId', (req, res) => {
+  const userRewards = rewards[req.params.userId];
+  if (userRewards !== undefined) {
+    res.status(200).json({ userId: req.params.userId, points: userRewards });
+  } else {
+    res.status(404).send('User rewards not found.');
+  }
+});
+
+// Retrieve payment info
+app.get('/payment/:orderId', (req, res) => {
+  const paymentInfo = payments[req.params.orderId];
+  if (paymentInfo) {
+    res.status(200).json(paymentInfo);
+  } else {
+    res.status(404).send('Payment information not found.');
+  }
+});
 
 const PORT = 3020;
 app.listen(PORT, () => {

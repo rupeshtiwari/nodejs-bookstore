@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { rewards } = require('../utils/db');
+const { rewards } = require('./db');
 const logger = require('../../../logger/logger');
 
 const PORT = 3001;

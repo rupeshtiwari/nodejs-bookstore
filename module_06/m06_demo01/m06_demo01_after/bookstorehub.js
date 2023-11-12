@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const logger = require('../../../logger/logger'); // Import the logger module
-const { orders, orderHistory, payments } = require('../utils/db');
+const { orders, orderHistory, payments } = require('./db');
 const LoadBalancer = require('./loadbalancer'); // Import the loadbalancer module
 
 

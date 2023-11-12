@@ -1,6 +1,6 @@
 const express = require('express');
 // In-memory database
-const { orders, payments, rewards, orderHistory } = require('../utils/db');
+const { orders, payments, rewards, orderHistory } = require('./db');
 const app = express();
 app.use(express.json());
 

@@ -1,0 +1,25 @@
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T20:43:21.184Z"}
+{"level":"info","message":"Payment Service running on port 3030","timestamp":"2023-11-12T20:43:21.219Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T20:43:24.076Z"}
+{"level":"info","message":"BookStoreHub Monolith running on port 3020","timestamp":"2023-11-12T20:43:24.106Z"}
+{"level":"info","message":"Order 1699821809312 created for user user123","timestamp":"2023-11-12T20:43:29.313Z"}
+{"level":"info","message":"Payment processed for order 1699821809312","timestamp":"2023-11-12T20:43:29.345Z"}
+{"level":"info","message":"Order 1699821811184 created for user user123","timestamp":"2023-11-12T20:43:31.184Z"}
+{"level":"info","message":"Payment processed for order 1699821811184","timestamp":"2023-11-12T20:43:31.189Z"}
+{"level":"info","message":"Order 1699821812310 created for user user123","timestamp":"2023-11-12T20:43:32.310Z"}
+{"level":"info","message":"Payment processed for order 1699821812310","timestamp":"2023-11-12T20:43:32.313Z"}
+{"level":"info","message":"Order 1699822010973 created for user user123","timestamp":"2023-11-12T20:46:50.973Z"}
+{"level":"info","message":"Payment processed for order 1699822010973","timestamp":"2023-11-12T20:46:51.009Z"}
+{"level":"info","message":"Order 1699822206363 created for user user123","timestamp":"2023-11-12T20:50:06.363Z"}
+{"level":"info","message":"Payment processed for order 1699822206363","timestamp":"2023-11-12T20:50:06.378Z"}
+{"level":"info","message":"Order 1699822407133 created for user user123","timestamp":"2023-11-12T20:53:27.134Z"}
+{"level":"info","message":"Payment processed for order 1699822407133","timestamp":"2023-11-12T20:53:27.139Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T20:54:12.682Z"}
+{"level":"info","message":"BookStoreHub Monolith running on port 3020","timestamp":"2023-11-12T20:54:12.711Z"}
+{"level":"info","message":"Logger initialized successfully.","timestamp":"2023-11-12T20:54:15.049Z"}
+{"level":"info","message":"Payment Service running on port 3030","timestamp":"2023-11-12T20:54:15.079Z"}
+{"level":"info","message":"Order 1699822457537 created for user user123","timestamp":"2023-11-12T20:54:17.537Z"}
+{"level":"info","message":"Payment processed for order 1699822457537","timestamp":"2023-11-12T20:54:17.571Z"}
+{"level":"info","message":"BookStoreHub Monolith received PaymentReceived event","timestamp":"2023-11-12T20:54:17.584Z"}
+{"items":[{"price":150},{"price":250}],"level":"info","message":"BookStoreHub Monolith added order history","orderId":1699822457537,"timestamp":"2023-11-12T20:54:17.585Z","total":400,"userId":"user123"}
+{"level":"info","message":"BookStoreHub Monolith updated rewards to 40","timestamp":"2023-11-12T20:54:17.585Z"}

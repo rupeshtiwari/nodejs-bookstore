@@ -1,5 +1,5 @@
 const { rewards: rewardsServiceDb } = require('./rewardsServiceDb');
-const { rewards: monolithRewardsDb } = require('../utils/db');
+const { rewards: monolithRewardsDb } = require('./db');
 
 // Function to sync data from rewardsServiceDb to monolithRewardsDb
 function syncToMonolith() {
