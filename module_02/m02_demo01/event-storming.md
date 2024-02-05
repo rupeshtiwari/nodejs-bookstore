@@ -1,46 +1,34 @@
 # 📚 BookStoreHub Event Storming
 
-In our revised Event Storming session for the BookStoreHub, we delved deeper into the process, meticulously identifying and defining bounded contexts through the lens of events, commands, and their interactions. Here's the detailed exploration and collaborative synthesis of our findings.
+Event Storming session for the BookStoreHub, we delved deeper into the process, meticulously identifying and defining bounded contexts through the lens of events, commands, and their interactions. Here's the detailed exploration and collaborative synthesis of our findings.
 
-
-
-
-
-## Team 1's Detailed Findings:
-
+### Team 1's Detailed Findings:
 - **Events Identified**: `OrderPlaced`, `StockChecked`, `ReviewSubmitted`
 - **Commands**: `CreateOrder`, `CheckStock`, `SubmitReview`
 - **Chronological Ordering**: They started with `CreateOrder`, leading to `CheckStock`, and upon successful order placement, `OrderPlaced` event was triggered, concluding with `SubmitReview` resulting in `ReviewSubmitted`.
-- **Boundaries Found**:
+- **Boundaries Found**: 
     - **Order & Payment Processing**: Combining order creation, stock checking, and payment processing.
     - **Customer Engagement**: Encompassing reviews submission and handling.
-- **Named Boundaries**:
+- **Named Boundaries**: 
     - **Sales Transactions**: For Order & Payment Processing
     - **User Interaction**: For Customer Engagement
 
-
-
-## Team 2's Detailed Findings:
-
+### Team 2's Detailed Findings:
 - **Events Identified**: `OrderCreated`, `BookReserved`, `OrderCompleted`, `ReviewAdded`, `RecommendationUpdated`
 - **Commands**: `PlaceOrder`, `ReserveBook`, `CompleteOrder`, `AddReview`, `UpdateRecommendation`
 - **Chronological Ordering**: Began with `PlaceOrder`, leading to `ReserveBook`, then `OrderCompleted`, alongside `AddReview` leading to `ReviewAdded`, and finally, `UpdateRecommendation`.
-- **Boundaries Found**:
+- **Boundaries Found**: 
     - **Order Fulfillment**: Covering the entire order lifecycle.
     - **Inventory Management**: Focused on book reservation and stock updates.
     - **Customer Reviews**: Dedicated to review management.
     - **Recommendation Engine**: For updating book recommendations.
-- **Named Boundaries**:
+- **Named Boundaries**: 
     - **Order Processing**: For Order Fulfillment
     - **Stock Control**: For Inventory Management
     - **Feedback Loop**: For Customer Reviews
     - **Book Suggestions**: For the Recommendation Engine
 
-
-
-
-## Collaborative Curation to Four Bounded Contexts:
-
+### Collaborative Curation to Four Bounded Contexts:
 During the collaboration session, a detailed discussion led to the identification of overlaps and distinctions within the proposed contexts. This was crucial for refining the final bounded contexts.
 
 1. **Order Processing**:
@@ -55,15 +43,14 @@ During the collaboration session, a detailed discussion led to the identificatio
 4. **Recommendation System**:
     - **Why Merged/Renamed**: Team 2's "Book Suggestions" directly aligned with the recommendation functionality. It was chosen over Team 1's broader "User Interaction" context, which was deemed too expansive and not solely focused on recommendations.
 
-## Decision Rationale for Discarding/Merging Bounded Contexts:
-
+### Decision Rationale for Discarding/Merging Bounded Contexts:
 - **Sales Transactions and Order Fulfillment into Order Processing**: Unified to focus on the order's lifecycle, eliminating redundancy between ordering and payment processes.
 - **Stock Control into Book Inventory**: Recognized the need for a broader context that includes book details beyond stock management.
 - **User Interaction discarded**: The specific functionalities of reviews and recommendations warranted distinct bounded contexts, making "User Interaction" too broad and non-specific.
 
 This careful deliberation and synthesis of ideas from both teams led to a refined model that accurately represents the core domains of the BookStoreHub, setting a clear path for developing a microservices architecture that is aligned with business capabilities and technical requirements.
 
----
+
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': { 'primaryFont': 'PS TT Commons'}}}%%
 graph TD
