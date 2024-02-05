@@ -50,8 +50,10 @@ During the collaboration session, a detailed discussion led to the identificatio
 
 This careful deliberation and synthesis of ideas from both teams led to a refined model that accurately represents the core domains of the BookStoreHub, setting a clear path for developing a microservices architecture that is aligned with business capabilities and technical requirements.
 
+![bounded contexts](./bounded-contexts.png)
 
-```mermaid
+
+```
 %%{init: {'theme':'base', 'themeVariables': { 'primaryFont': 'PS TT Commons'}}}%%
 graph TD
     OP(fa:fa-cogs Order Processing):::primaryColor -->|Interacts with| BI(fa:fa-book Book Inventory):::secondaryColor
