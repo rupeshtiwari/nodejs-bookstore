@@ -12,7 +12,7 @@ Event Storming session for the BookStoreHub, we delved deeper into the process, 
 - **Named Boundaries**: 
     - **Sales Transactions**: For Order & Payment Processing
     - **User Interaction**: For Customer Engagement
-
+![team1](image.png)
 ### Team 2's Detailed Findings:
 - **Events Identified**: `OrderCreated`, `BookReserved`, `OrderCompleted`, `ReviewAdded`, `RecommendationUpdated`
 - **Commands**: `PlaceOrder`, `ReserveBook`, `CompleteOrder`, `AddReview`, `UpdateRecommendation`
@@ -52,6 +52,38 @@ This careful deliberation and synthesis of ideas from both teams led to a refine
 
 ![bounded contexts](./bounded-contexts.png)
 
+
+
+
+#### Team -1 
+
+```
+%%{init: {'theme':'base', 'themeVariables': { 'primaryFont': 'PS TT Commons', 'lineColor': '#130F25', 'textColor': '#EBEFF5'}}}%%
+graph LR
+    subgraph ST["Sales Transactions"]
+    direction TB
+    STEvents("Events: OrderPlaced, StockChecked"):::eventsBox
+    STCommands("Commands: CreateOrder, CheckStock"):::commandsBox
+    end
+
+    subgraph UI["User Interaction"]
+    direction TB
+    UIEvents("Events: ReviewSubmitted"):::eventsBox
+    UICommands("Commands: SubmitReview"):::commandsBox
+    end
+
+    classDef ST fill:#FF1675,stroke:#130F25,stroke-width:0.6px,color:#EBEFF5,font-family:'PS TT Commons Bold';
+    classDef UI fill:#00A3FF,stroke:#130F25,stroke-width:0.6px,color:#EBEFF5,font-family:'PS TT Commons Bold';
+    classDef eventsBox fill:#02E088,stroke:#130F25,stroke-width:0.6px,color:#0,font-family:'PS TT Commons Regular';
+    classDef commandsBox fill:#FF7B01,stroke:#130F25,stroke-width:0.6px,color:#fff,font-family:'PS TT Commons Regular';
+ 
+
+    class ST ST;
+    class UI UI;
+
+```
+
+#### Final Bounded Contexts
 
 ```
 %%{init: {'theme':'base', 'themeVariables': { 'primaryFont': 'PS TT Commons'}}}%%

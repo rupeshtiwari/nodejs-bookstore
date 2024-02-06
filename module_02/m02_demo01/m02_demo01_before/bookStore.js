@@ -26,7 +26,7 @@ let recommendations = [
   { bookId: 'B1002', recommended: true },
 ];
 
-// Mixed Concepts - Order Processing and Book Inventory
+// Order Processing
 app.post('/order', (req, res) => {
   const { customerId, bookId, quantity } = req.body;
   const book = books.find((book) => book.bookId === bookId);
@@ -36,7 +36,7 @@ app.post('/order', (req, res) => {
     // Calculate the total price
     const totalPrice = book.price * quantity;
 
-    // Create order and review simultaneously
+    // Create order
     const orderId = `ORD-${Math.random().toString(16).slice(2)}`;
     orders.push({
       orderId,
@@ -46,11 +46,6 @@ app.post('/order', (req, res) => {
       price: totalPrice,
       status: 'Confirmed',
     });
-
-    // Post a review automatically
-    const review = `Great book, loved it!`;
-    const rating = 5;
-    reviews.push({ bookId, review, rating });
 
     res.json({
       message: 'Order placed successfully',
@@ -65,7 +60,7 @@ app.post('/order', (req, res) => {
   }
 });
 
-// Mixed Concepts - Customer Reviews and Recommendation Engine
+// Customer Reviews
 app.post('/reviews', (req, res) => {
   const { bookId, review, rating } = req.body;
 
@@ -79,7 +74,10 @@ app.post('/reviews', (req, res) => {
 });
 
 // Server setup
-const PORT = 3001;
+const PORT = 0;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
+module.exports = app; // Export the Express app
