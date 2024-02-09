@@ -1,28 +1,31 @@
 const express = require('express');
+const { createOrder } = require('./contexts/orderProcessing');
+const { addReview } = require('./contexts/customerReviews');
+const { updateRecommendation } = require('./contexts/recommendationSystem');
+
 const app = express();
 app.use(express.json());
 
-const { createOrder } = require('./boundedContexts/orderProcessing');
-const { addReview } = require('./boundedContexts/customerReviews');
-const {
-  updateRecommendation,
-} = require('./boundedContexts/recommendationSystem');
-
-// Update the order and review endpoints to include recommendation updates
+// Order route
 app.post('/order', (req, res) => {
-  createOrder(req, res);
-  // Assuming you want to mark the book as not recommended after an order is placed
-  updateRecommendation(req.body.bookId, false);
+  const result = createOrder(
+    req.body.customerId,
+    req.body.bookId,
+    req.body.quantity
+  );
+  if (result.success) {
+    updateRecommendation(req.body.bookId, false); // Adjust recommendation
+    res.json(result);
+  } else {
+    res.status(400).json(result);
+  }
 });
 
+// Review route
 app.post('/reviews', (req, res) => {
-  addReview(req, res);
-  // Similarly, assuming you want to update the recommendation status after a review is added
-  updateRecommendation(req.body.bookId, false);
+  const result = addReview(req.body.bookId, req.body.review, req.body.rating);
+  updateRecommendation(req.body.bookId, true); // Possibly adjust recommendation
+  res.json(result);
 });
 
-// Server setup
-const PORT = 0;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-module.exports = app; // Export the Express app
+module.exports = app; // Export the Express app for server.js to use
