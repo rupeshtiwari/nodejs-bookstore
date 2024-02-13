@@ -12,4 +12,4 @@ class BookRepository {
   }
 }
 
-module.exports = {BookRepository}; // Adjusted to CommonJS export
+module.exports = BookRepository; // Adjusted to CommonJS export

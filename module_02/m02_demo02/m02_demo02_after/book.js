@@ -18,4 +18,4 @@ class Book {
   }
 }
 
-module.exports = {Book}; // Adjusted to CommonJS export
+module.exports = Book; // Adjusted to CommonJS export

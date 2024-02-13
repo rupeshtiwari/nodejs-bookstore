@@ -23,7 +23,7 @@ async function processSale(isbn, quantity) {
   if (booksInventory[isbn].stock >= quantity) {
     // Simulate a delay to mimic real-world asynchronous behavior and potential race conditions
     // review: uncomment below to show concurrency issues
-    // await new Promise((resolve) => setTimeout(resolve, Math.random() * 50));
+     await new Promise((resolve) => setTimeout(resolve, Math.random() * 50));
     booksInventory[isbn].stock -= quantity;
     return { success: true, price: calculatePrice(isbn) };
   } else {

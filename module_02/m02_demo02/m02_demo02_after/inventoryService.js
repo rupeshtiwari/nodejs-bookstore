@@ -1,18 +1,24 @@
-const BookRepository = require('./bookRepository'); // Adjusted to CommonJS import
-
 class InventoryService {
   constructor(bookRepository) {
     this.bookRepository = bookRepository;
   }
 
-  sellBook(isbn, quantity) {
-    const book = this.bookRepository.getBook(isbn);
-    if (!book) {
-      throw new Error('Book not found');
+  // Simulate interaction with an external system that introduces a delay
+  async sellBook(isbn, quantity) {
+    const book = await this.bookRepository.findBookByIsbn(isbn);
+    if (!book) throw new Error('Book not found');
+
+    // Simulate delay to mimic real-world asynchronous behavior and potential race conditions
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 50));
+
+    try {
+      book.updateStock(-quantity); // Assuming updateStock method correctly handles stock reduction
+      await this.bookRepository.save(book); // Simulate async save operation
+      return { success: true, finalPrice: book.getFinalPrice() };
+    } catch (error) {
+      return { success: false, message: error.message };
     }
-    book.updateStock(quantity); // This might throw if insufficient stock
-    return book.getFinalPrice() * quantity;
   }
 }
 
-module.exports = {InventoryService}; // Adjusted to CommonJS export
+module.exports = InventoryService;
