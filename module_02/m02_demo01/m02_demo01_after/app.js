@@ -21,7 +21,7 @@ app.post('/order', (req, res) => {
   }
 });
 
-// Review route
+// Route for Review
 app.post('/reviews', (req, res) => {
   const result = addReview(req.body.bookId, req.body.review, req.body.rating);
   updateRecommendation(req.body.bookId, true); // Possibly adjust recommendation
