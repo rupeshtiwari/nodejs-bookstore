@@ -8,14 +8,13 @@ class Book {
   }
 
   setPrice(price) {
-    if (price < 0) throw new Error('Price must be positive');
+    if (price < 0) throw new Error('Price must be positive.');
     this.price = price;
   }
 
   setStock(stock) {
-    if (stock < 0) throw new Error('Stock must be positive');
+    if (stock < 0) throw new Error('Stock must be positive.');
     this.stock = stock;
   }
 }
-
 module.exports = Book;

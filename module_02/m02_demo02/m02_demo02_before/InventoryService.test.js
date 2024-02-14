@@ -1,99 +1,101 @@
-const { addBook, updateBookPrice } = require('./inventoryService.js');
+const {
+  addBook,
+  updateBookPrice,
+  updateBookStock,
+} = require('./inventoryService');
 
-describe('Legacy Inventory Service', () => {
+describe('Legacy Inventory Service - Entity (Book) Related Tests', () => {
   let books = [];
   let categories = [];
-  let originalConsoleError;
+
   beforeEach(() => {
-    // Resetting state before each test
     books = [];
     categories = [];
-    originalConsoleError = console.error;
-    console.error = jest.fn();
   });
 
-  afterEach(() => {
-    // Clean up if necessary
-    console.error = originalConsoleError;
-  });
-
-  // Entity (Book) Related Issues
-  test('Adding a book with negative stock does not enforce business rules', () => {
+  test('Business rule enforcement for book addition is duplicated', () => {
+    // Demonstrating duplicate validation logic by adding a book in one place...
     addBook(
       books,
       categories,
       '001',
-      'Test Book',
+      'First Book',
       'Author One',
-      25,
-      -10,
-      'Test Genre'
+      10,
+      5,
+      'Fiction'
     );
+    // ...and having similar validation logic in another method like updateBookPrice or updateBookStock
+    updateBookPrice(books, '001', 20); // This also checks for positive price internally
+
     const book = books.find((b) => b.isbn === '001');
-    // Expect to fail because the business rule (positive stock) is not enforced
-    expect(book).toBeDefined(); // The book is added despite the negative stock
-    expect(book.stock).toBeGreaterThanOrEqual(0); // This will fail, highlighting the issue
+    expect(book.price).toEqual(20);
+    // This test passes, but it shows that we have to maintain validation logic in multiple places.
   });
 
-  test('Updating book price to a negative value is allowed', () => {
+  test('Direct manipulation of book properties allows inconsistent states', () => {
     addBook(
       books,
       categories,
       '002',
-      'Another Test Book',
+      'Second Book',
       'Author Two',
-      30,
-      5,
-      'Another Test Genre'
+      15,
+      10,
+      'Non-Fiction'
     );
-    updateBookPrice(books, '002', -20);
     const book = books.find((b) => b.isbn === '002');
-    // Expect to fail because the business rule (positive price) is not enforced
-    expect(book.price).toBeGreaterThanOrEqual(0); // This will fail
+    book.stock = -10; // Direct manipulation bypassing business rules
+    expect(book.stock).toBeLessThan(0); // This should not be possible with proper encapsulation
+  });
+});
+
+describe('Legacy Inventory Service - Aggregate (Category) Related Tests', () => {
+  let books = [];
+  let categories = [];
+
+  beforeEach(() => {
+    books = [];
+    categories = [];
   });
 
-  // Aggregate (Category) Related Issues
-  test('Books added to a non-existent category are lost', () => {
+  test('Direct manipulation of aggregate internals (category books list)', () => {
     addBook(
       books,
       categories,
       '003',
-      'Lost Book',
+      'Third Book',
       'Author Three',
-      15,
+      20,
       5,
-      'Lost Genre'
+      'Fiction'
     );
-    const category = categories.find((c) => c.genre === 'Lost Genre');
-    // Expect the category to be automatically created, but this design might lead to unintended behavior
-    expect(category).toBeDefined();
-    expect(category.books.length).toBe(1); // This passes but highlights a design concern
+    const category = categories.find((c) => c.genre === 'Fiction');
+    category.books.push({
+      isbn: '004',
+      title: 'Improperly Added Book',
+      author: 'Author Four',
+      price: 5,
+      stock: 5,
+      genre: 'Fiction',
+    }); // Directly manipulating the internals of an aggregate
+    expect(category.books.length).toBeGreaterThan(1);
   });
 
-  test('Direct manipulation of category books allows inconsistent states', () => {
+  test('Lack of encapsulation in aggregate operations', () => {
     addBook(
       books,
       categories,
-      '004',
-      'Direct Manipulation Book',
-      'Author Four',
-      20,
-      10,
-      'Direct Genre'
+      '005',
+      'Fifth Book',
+      'Author Five',
+      25,
+      5,
+      'Non-Fiction'
     );
-    const category = categories.find((c) => c.genre === 'Direct Genre');
-    category.books.push({
-      isbn: '005',
-      title: 'Invalid Book',
-      author: 'No Author',
-      price: -100,
-      stock: -5,
-      genre: 'Direct Genre',
-    });
-    // This test demonstrates that direct manipulation can lead to invalid states
-    const invalidBook = category.books.find((b) => b.isbn === '005');
-    expect(invalidBook).toBeDefined(); // The invalid book is added without validation
-    expect(invalidBook.price).toBeGreaterThanOrEqual(0); // This will fail
-    expect(invalidBook.stock).toBeGreaterThanOrEqual(0); // This will also fail
+    const category = categories.find((c) => c.genre === 'Non-Fiction');
+    // Demonstrates tight coupling by directly affecting aggregate internals without business rule enforcement
+    category.books[0].price = -20; // Should be prevented by encapsulation
+    expect(category.books[0].price).toBeLessThan(0);
   });
 });

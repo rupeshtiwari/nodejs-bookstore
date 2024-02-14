@@ -1,7 +1,10 @@
+// inventoryService.js (Legacy Code Example)
+
 function addBook(books, categories, isbn, title, author, price, stock, genre) {
+  // Duplicate and scattered business logic for validation
   if (stock < 0 || price < 0) {
     console.error('Stock and price must be positive.');
-    return; // Early return if validation fails
+    return;
   }
 
   let category = categories.find((c) => c.genre === genre);
@@ -10,12 +13,14 @@ function addBook(books, categories, isbn, title, author, price, stock, genre) {
     categories.push(category);
   }
 
+  // Direct manipulation of the category's book list without any encapsulation
   const book = { isbn, title, author, price, stock, genre };
-  category.books.push(book); // Add book to the category
-  books.push(book); // Add book to the global list
+  category.books.push(book);
+  books.push(book); // Duplicate addition for global search
 }
 
 function updateBookPrice(books, isbn, newPrice) {
+  // Scattered business rule for price validation
   if (newPrice < 0) {
     console.error('Price must be positive.');
     return;
@@ -30,6 +35,7 @@ function updateBookPrice(books, isbn, newPrice) {
 }
 
 function updateBookStock(books, isbn, newStock) {
+  // Scattered business rule for stock validation
   if (newStock < 0) {
     console.error('Stock must be positive.');
     return;
@@ -42,3 +48,5 @@ function updateBookStock(books, isbn, newStock) {
     console.error(`Book with ISBN '${isbn}' not found.`);
   }
 }
+
+module.exports = { addBook, updateBookPrice, updateBookStock };

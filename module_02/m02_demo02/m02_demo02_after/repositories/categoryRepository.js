@@ -7,11 +7,9 @@ class CategoryRepository {
     this.categories.push(category);
   }
 
-  findByName(name) {
-    return this.categories.find((category) => category.name === name);
+  findByGenre(genre) {
+    return this.categories.find((category) => category.genre === genre);
   }
-
-  // Include methods for managing category-specific operations
 }
 
 module.exports = CategoryRepository;

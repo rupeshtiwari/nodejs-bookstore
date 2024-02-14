@@ -1,50 +1,34 @@
-const Book = require('./entities/book');
-const Category = require('./entities/category');
+const Category = require('../models/category');
+const Book = require('../models/book');
 
 class InventoryService {
-  constructor() {
-    this.categories = [];
+  constructor(bookRepository, categoryRepository) {
+    this.bookRepository = bookRepository;
+    this.categoryRepository = categoryRepository;
   }
 
-  addBook(isbn, title, author, price, stock, genre) {
-    let category = this.findCategory(genre);
+  addBook({ isbn, title, author, price, stock, genre }) {
+    const book = new Book(isbn, title, author, price, stock);
+    this.bookRepository.add(book);
+
+    let category = this.categoryRepository.findByGenre(genre);
     if (!category) {
       category = new Category(genre);
-      this.categories.push(category);
+      this.categoryRepository.add(category);
     }
-    try {
-      const book = new Book(isbn, title, author, price, stock);
-      category.addBook(book);
-    } catch (error) {
-      console.error(error.message);
-    }
+    category.addBook(book);
   }
 
   updateBookPrice(isbn, newPrice) {
-    const book = this.findBook(isbn);
-    if (book) {
-      try {
-        book.setPrice(newPrice);
-      } catch (error) {
-        console.error(error.message);
-      }
-    } else {
-      console.error(`Book with ISBN '${isbn}' not found.`);
-    }
+    const book = this.bookRepository.findByIsbn(isbn);
+    if (!book) throw new Error(`Book with ISBN '${isbn}' not found.`);
+    book.setPrice(newPrice);
   }
 
-  // Helper methods to find a book or category
-  findBook(isbn) {
-    for (const category of this.categories) {
-      const book = category.books.find((book) => book.isbn === isbn);
-      if (book) return book;
-    }
-    return null;
-  }
-
-  findCategory(genre) {
-    return this.categories.find((category) => category.genre === genre);
+  updateBookStock(isbn, newStock) {
+    const book = this.bookRepository.findByIsbn(isbn);
+    if (!book) throw new Error(`Book with ISBN '${isbn}' not found.`);
+    book.setStock(newStock);
   }
 }
-
 module.exports = InventoryService;
