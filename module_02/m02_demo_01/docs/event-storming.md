@@ -1,6 +1,9 @@
-# 📚 BookStoreHub Event Storming
+# 📚 Monolithic BookStoreHub DDD Event Storming Details
 
-Event Storming session for the BookStoreHub, we delved deeper into the process, meticulously identifying and defining bounded contexts through the lens of events, commands, and their interactions. Here's the detailed exploration and collaborative synthesis of our findings.
+Event Storming session for the BookStoreHub, we delved deeper into the process, meticulously identifying and defining bounded contexts through the lens of events, commands, and their interactions. Here's the detailed exploration and collaborative synthesis of our findings. In our recent Event Storming session, we gathered the team including developers, scrum masters, testers, architects, and business stakeholders as domain experts, around a whiteboard, armed with sticky notes and markers. We started mapping out the flow of events and commands within our monolithic app.
+
+<img width="879" alt="bounded-contexts" src="https://gist.github.com/assets/330383/868685d9-3edf-43e7-b483-c056354359c3">
+
 
 ### Team 1's Detailed Findings:
 - **Events Identified**: `OrderPlaced`, `StockChecked`, `ReviewSubmitted`
@@ -12,7 +15,10 @@ Event Storming session for the BookStoreHub, we delved deeper into the process, 
 - **Named Boundaries**: 
     - **Sales Transactions**: For Order & Payment Processing
     - **User Interaction**: For Customer Engagement
-![team1](image.png)
+<img width="310" alt="image" src="https://gist.github.com/assets/330383/e365cc40-72db-48ae-a5ff-f8767027df83">
+
+
+
 ### Team 2's Detailed Findings:
 - **Events Identified**: `OrderCreated`, `BookReserved`, `OrderCompleted`, `ReviewAdded`, `RecommendationUpdated`
 - **Commands**: `PlaceOrder`, `ReserveBook`, `CompleteOrder`, `AddReview`, `UpdateRecommendation`
@@ -27,6 +33,7 @@ Event Storming session for the BookStoreHub, we delved deeper into the process, 
     - **Stock Control**: For Inventory Management
     - **Feedback Loop**: For Customer Reviews
     - **Book Suggestions**: For the Recommendation Engine
+<img width="287" alt="image" src="https://gist.github.com/assets/330383/86c3c141-45de-4d3b-ab5f-02a0901f6697">
 
 ### Collaborative Curation to Four Bounded Contexts:
 During the collaboration session, a detailed discussion led to the identification of overlaps and distinctions within the proposed contexts. This was crucial for refining the final bounded contexts.
@@ -49,9 +56,7 @@ During the collaboration session, a detailed discussion led to the identificatio
 - **User Interaction discarded**: The specific functionalities of reviews and recommendations warranted distinct bounded contexts, making "User Interaction" too broad and non-specific.
 
 This careful deliberation and synthesis of ideas from both teams led to a refined model that accurately represents the core domains of the BookStoreHub, setting a clear path for developing a microservices architecture that is aligned with business capabilities and technical requirements.
-
-![bounded contexts](./bounded-contexts.png)
-
+<img width="1362" alt="image" src="https://gist.github.com/assets/330383/c45c4200-b9a8-474e-b66a-9be27d18bf20">
 
 
 
@@ -85,7 +90,7 @@ graph LR
 
 #### Final Bounded Contexts
 
-```
+```mermaid
 %%{init: {'theme':'base', 'themeVariables': { 'primaryFont': 'PS TT Commons'}}}%%
 graph TD
     OP(fa:fa-cogs Order Processing):::primaryColor -->|Interacts with| BI(fa:fa-book Book Inventory):::secondaryColor
@@ -97,4 +102,33 @@ graph TD
     classDef secondaryColor fill:#00A3FF,stroke:#130F25,stroke-width:0.6px,color:#EBEFF5,font-family:'PS TT Commons Bold';
     classDef actionColor fill:#02E088,stroke:#130F25,stroke-width:0.6px,color:#000,font-family:'PS TT Commons Bold';
     classDef resultColor fill:#FFC942,stroke:#130F25,stroke-width:0.6px,color:#000,font-family:'PS TT Commons Bold';
+```
+
+```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryFont': 'PS TT Commons'}}}%%
+graph TD
+  subgraph Team1["Team 1 - Event Storming outcome"]
+  direction LR
+
+  subgraph OrderPayment["  <b>Order & Payment Processing</b>"]
+  direction LR
+  OPEvents("fa:fa-users\nEvents: OrderPlaced, StockChecked"):::orderEventsBox
+  OPCommands("fa:fa-comment-dots\nCommands: CreateOrder, CheckStock"):::orderCommandsBox
+  end
+
+  subgraph CustomerEngagement[" <b>Customer Engagement</b>"]
+  direction LR
+  CEEvents("fa:fa-users\nEvents: ReviewSubmitted"):::customerEventsBox
+  CECommands("fa:fa-comment-dots\nCommands: SubmitReview"):::customerCommandsBox
+  end
+
+  end
+
+  classDef orderEventsBox fill:#00A3FF,stroke:#130F25,stroke-width:0.6px,color:#EBEFF5,font-family:'PS TT Commons Regular';
+  classDef orderCommandsBox fill:#FFC942,stroke:#130F25,stroke-width:0.6px,color:#0,font-family:'PS TT Commons Regular';
+  classDef customerEventsBox fill:#00A3FF,stroke:#130F25,stroke-width:0.6px,color:#EBEFF5,font-family:'PS TT Commons Regular';
+  classDef customerCommandsBox fill:#FFC942,stroke:#130F25,stroke-width:0.6px,color:#0,font-family:'PS TT Commons Regular';
+
+  style OrderPayment fill:#02E088,stroke:#130F25,stroke-width:1px,color:#130F25,font-family:'PS TT Commons Bold';
+  style CustomerEngagement fill:#FF7B01,stroke:#130F25,stroke-width:1px,color:#130F25,font-family:'PS TT Commons Bold';
 ```
