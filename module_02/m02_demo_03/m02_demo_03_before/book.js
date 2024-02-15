@@ -1,4 +1,6 @@
 // book.js
+const { isValidISBN } = require('./helper');
+
 class Book {
   constructor(isbn, price, stock) {
     if (!isValidISBN(isbn)) throw new Error('Invalid ISBN format.');
