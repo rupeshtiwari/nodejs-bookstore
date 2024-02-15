@@ -35,7 +35,6 @@ app.post('/order', (req, res) => {
     book.stock -= quantity;
     // Calculate the total price
     const totalPrice = book.price * quantity;
-
     // Create order
     const orderId = `ORD-${Math.random().toString(16).slice(2)}`;
     orders.push({
@@ -52,7 +51,6 @@ app.post('/order', (req, res) => {
       orderId,
       status: 'Confirmed',
     });
-
     // Update recommendations after order
     recommendations.find((r) => r.bookId === bookId).recommended = false;
   } else {

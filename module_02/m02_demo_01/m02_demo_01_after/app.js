@@ -28,4 +28,4 @@ app.post('/reviews', (req, res) => {
   res.json(result);
 });
 
-module.exports = app; // Export the Express app for server.js to use
+module.exports = app; // Export the Express app for server

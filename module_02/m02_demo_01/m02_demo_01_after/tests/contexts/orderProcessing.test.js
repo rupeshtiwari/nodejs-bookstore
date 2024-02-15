@@ -59,6 +59,7 @@ describe('Order Processing', () => {
     expect(updateStock).not.toHaveBeenCalled();
     expect(getBookDetails).not.toHaveBeenCalled();
   });
+  
   it('fails to create an order when book details are not found', () => {
     // Simulate getBookDetails returning null for a missing book
     getBookDetails.mockImplementation(() => null);
