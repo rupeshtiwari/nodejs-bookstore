@@ -64,6 +64,7 @@ describe('Refactored DDD Inventory Service - Aggregate (Category) Related Tests'
 
     const category = categoryRepository.findByGenre('Fiction');
     expect(category).toBeDefined();
+    
     const book = category.findBook('003');
     expect(book).toBeDefined();
     expect(book.title).toEqual('Third Book');

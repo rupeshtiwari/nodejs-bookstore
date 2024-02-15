@@ -19,6 +19,19 @@ function addBook(books, categories, isbn, title, author, price, stock, genre) {
   books.push(book); // Duplicate addition for global search
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 function updateBookPrice(books, isbn, newPrice) {
   // Scattered business rule for price validation
   if (newPrice < 0) {

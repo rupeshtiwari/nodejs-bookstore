@@ -1,7 +1,6 @@
 const {
   addBook,
   updateBookPrice,
-  updateBookStock,
 } = require('./inventoryService');
 
 describe('Legacy Inventory Service - Entity (Book) Related Tests', () => {
