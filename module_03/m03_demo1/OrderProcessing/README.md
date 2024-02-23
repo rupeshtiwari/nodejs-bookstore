@@ -1,5 +1,21 @@
 # Order Processing Bounded Context 
 
+BookStoreHub/
+└── OrderProcessing/
+    ├── src/
+    │   ├── controllers/
+    │   │   └── orderController.js
+    │   ├── services/
+    │   │   └── orderService.js
+    │   └── models/
+    │       └── orderModel.js
+    ├── test/
+    │   ├── unit/
+    │   │   └── orderService.test.js
+    │   └── integration/
+    │       └── orderProcessing.test.js
+    └── index.js
+
 
 ## Installations & Node.js Packages required
 For the provided code to work as intended, you'll need to install several Node.js libraries. Below are the necessary installations along with their purposes:

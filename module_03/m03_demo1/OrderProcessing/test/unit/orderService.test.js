@@ -41,11 +41,5 @@ describe('OrderService - createOrder', () => {
 
     // Ensure that the totalAmount is correctly calculated and matches the mock
     expect(result.totalAmount).toBe(20);
-
-    // Ensure that the eventEmitter.emit function was called with 'OrderPlaced'
-    expect(eventEmitter.emit).toHaveBeenCalledWith(
-      'OrderPlaced',
-      expect.anything()
-    );
   });
 });

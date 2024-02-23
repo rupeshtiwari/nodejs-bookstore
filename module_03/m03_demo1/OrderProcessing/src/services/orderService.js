@@ -1,15 +1,14 @@
 const Order = require('../models/orderModel');
-const eventEmitter = require('../utilities/eventEmitter');
 const bookService = require('./bookService'); // Placeholder for actual book service import
 
-exports.createOrder = async (orderData) => {
+exports.createOrder = async ({customerId, items}) => {
   let totalAmount = 0;
-  for (const item of orderData.items) {
+  for (const item of items) {
     const bookDetails = await bookService.getBookDetails(item.bookId);
     totalAmount += bookDetails.price * item.quantity;
   }
 
-  const order = new Order({ ...orderData, totalAmount });
+  const order = new Order({ customerId,items, totalAmount });
 
   // console.log('Order before save:', order); // Log the order before saving
 
@@ -17,7 +16,6 @@ exports.createOrder = async (orderData) => {
 
   // console.log('Order after save:', order); // Log the order after saving
 
-  eventEmitter.emit('OrderPlaced', order);
 
   return savedOrder;
 };
