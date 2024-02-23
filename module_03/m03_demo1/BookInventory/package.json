@@ -1,0 +1,29 @@
+  {
+    "name": "bookinventory",
+    "description": "To demonstrate the Query concept of CQRS in the Book Inventory Bounded Context (BC), let's set up an Inventory Service. This service will focus on managing book stock levels and handling events related to stock reservation when an order is placed. The service will use Sequelize ORM for database interactions and `node-eventstore-client` for event subscriptions.",
+    "version": "1.0.0",
+    "main": "index.js",
+    "directories": {
+      "doc": "docs",
+      "test": "test"
+    },
+    "scripts": {
+      "start": "node index.js",
+      "dev": "nodemon index.js",
+      "test": "jest --runInBand",
+      "test:watch": "jest --watch"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "dotenv": "^16.4.5",
+      "express": "^4.18.2",
+      "sequelize": "^6.37.1"
+    },
+    "devDependencies": {
+      "jest": "^29.7.0",
+      "nodemon": "^3.1.0",
+      "supertest": "^6.3.4"
+    }
+  }

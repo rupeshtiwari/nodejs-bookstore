@@ -1,8 +1,7 @@
 
 
 const OrderService = require('../services/orderService');
-const CreateOrderCommand = require('../commands/createOrderCommand');
-const eventEmitter = require('../utilities/eventEmitter');
+const BUS = require('../../shared/utilities/bus');
 
 class OrderCommandHandler {
   async handle(command) {
@@ -14,7 +13,7 @@ class OrderCommandHandler {
       const order = await OrderService.createOrder({ customerId, items });
 
       // Emit an event indicating that an order has been successfully placed
-        eventEmitter.emit('OrderPlaced', order);
+      BUS.publishEvent('OrderPlaced', orderData);
         
       return order;
     } catch (error) {
