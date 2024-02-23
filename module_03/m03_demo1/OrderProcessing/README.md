@@ -1,21 +1,49 @@
 # Order Processing Bounded Context 
 
+Directory structure and detail which files represent specific CQRS concepts such as logs, state reconstructions, event handling, and event processing.
+
+```
 BookStoreHub/
 └── OrderProcessing/
     ├── src/
+    │   ├── commands/
+    │   │   └── CreateOrderCommand.js  # Command pattern, encapsulating order data and validation
     │   ├── controllers/
-    │   │   └── orderController.js
+    │   │   └── orderController.js     # Entry point for HTTP requests, handling commands
     │   ├── services/
-    │   │   └── orderService.js
+    │   │   ├── orderService.js        # Business logic, part of the Command side for CQRS
+    │   │   └── orderCommandHandler.js # Handles execution of commands using the service layer
+    │   ├── utilities/
+    │   │   └── eventEmitter.js        # Facilitates event handling and processing across the system
     │   └── models/
-    │       └── orderModel.js
+    │       └── orderModel.js          # Data model, supporting both command and query operations indirectly
     ├── test/
     │   ├── unit/
-    │   │   └── orderService.test.js
+    │   │   ├── orderService.test.js          # Tests for the order service logic
+    │   │   ├── createOrderCommand.test.js    # Tests for command validation logic
+    │   │   └── orderCommandHandler.test.js   # Tests for command execution flow
     │   └── integration/
-    │       └── orderProcessing.test.js
-    └── index.js
+    │       └── orderProcessing.test.js       # Integration tests, verifying the system works as a whole
+    └── index.js # Initializes the application and ties everything together
+```
 
+### Representation of CQRS and Related Concepts:
+
+- **Commands/`CreateOrderCommand.js`**: Represents the **Command** part of CQRS by encapsulating all the information needed for an action (order creation) including validation. It directly embodies the **Command pattern**.
+  
+- **Controllers/`orderController.js`**: Acts as the entry point for handling **Commands** through HTTP requests, interfacing with the command handler or service directly.
+
+- **Services/`orderService.js`**: Part of the **Command** side in CQRS, containing the business logic for creating orders. It also involves **Event Handling** by emitting events after order creation.
+
+- **Services/`orderCommandHandler.js`**: This is where **Command handling** is explicitly executed. It uses the `orderService` to process the command, fitting into the **Command pattern** and demonstrating **Event Processing** by deciding when to emit events.
+
+- **Utilities/`eventEmitter.js`**: A utility for **Event Handling** and **Event Processing** across the system, allowing different parts of the application to emit and listen for events, facilitating an **Event-Driven Architecture**.
+
+- **Models/`orderModel.js`**: While not directly part of CQRS concepts, models support both command and query operations by interacting with the database. 
+
+- **Tests**: Each test file corresponds to its respective component, ensuring that both command handling and event processing logic meet expected behaviors.
+
+This structure and the components within it aim to provide a clear distinction between handling commands and processing events, adhering to CQRS principles and facilitating an event-driven approach within the Order Processing microservice of the BookStoreHub application.
 
 ## Installations & Node.js Packages required
 For the provided code to work as intended, you'll need to install several Node.js libraries. Below are the necessary installations along with their purposes:
