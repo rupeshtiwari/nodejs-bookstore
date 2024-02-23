@@ -104,6 +104,8 @@ If you're using `nodemon` for development (automatically restarts the server on 
 npm run dev
 ```
 
+ ![alt text](./docs/run-dev.png)
+
 ### Step 5: Testing
 To test your microservice, ensure you've written tests in the `test` directory and run:
 
@@ -111,7 +113,36 @@ To test your microservice, ensure you've written tests in the `test` directory a
 npm test
 ```
 
+![alt text](./docs/running-test.png)
+
 This executes unit and integration tests using Jest.
+
+### Step 6: Executing order
+
+Given that your app is running on `PORT=3920`, let's run  `curl` command to test the Order Processing service with a concrete example. Here's how you can test placing an order with updated port information:
+
+```bash
+curl -X POST http://localhost:3920/api/orders \
+-H 'Content-Type: application/json' \
+-d '{
+    "customerId": "cust123",
+    "items": [
+        {"bookId": "book1", "quantity": 1},
+        {"bookId": "book2", "quantity": 2}
+    ]
+}'
+```
+ 
+ You should see the response in console similar to: 
+
+
+![alt text](./docs/order-creation-usecase.png)
+
+ 
+ You notice mongo db `test` db will get one entry for this order created similar to:
+
+ ![alt text](./docs/mongodb-order.png)
+
 
 ### MongoDB Considerations
 - If you're running MongoDB locally, ensure the MongoDB service is running before starting your microservice.
@@ -125,4 +156,3 @@ This executes unit and integration tests using Jest.
 Following these steps should get your Order Processing microservice up and running, ready for development and testing.
 
 
-![alt text](./docs/npm-start-dev.png)
