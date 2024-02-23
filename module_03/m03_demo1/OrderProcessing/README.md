@@ -1,3 +1,6 @@
+# Order Processing Bounded Context 
+
+
 ## Installations & Node.js Packages required
 For the provided code to work as intended, you'll need to install several Node.js libraries. Below are the necessary installations along with their purposes:
 
@@ -74,6 +77,17 @@ You need a MongoDB instance. If you haven't installed MongoDB locally, you can d
 - Sign up and create a cluster.
 - Follow the connection instructions provided by Atlas to get your connection string.
 
+### MongoDB Considerations
+- If you're running MongoDB locally, ensure the MongoDB service is running before starting your microservice.
+- For cloud-based MongoDB (e.g., Atlas), ensure your IP is whitelisted and you've added your user credentials to the connection string in your `.env` file.
+
+### Additional Notes
+- MongoDB installation and running instructions might vary based on your operating system. Refer to official MongoDB documentation for specific details.
+- The connection string (`MONGODB_URI`) format for MongoDB Atlas will differ and include your username, password, and cluster details.
+- The `.env` file is crucial for configuring your application's environment variables without hardcoding sensitive information like database URIs.
+
+Following these steps should get your Order Processing microservice up and running, ready for development and testing.
+
 ### Step 2: Set Up Your Microservice Environment
 Create an `.env` file in the root of your `OrderProcessing` project with the following content, adjusting the `MONGODB_URI` to match your MongoDB connection string (local or Atlas):
 
@@ -144,15 +158,7 @@ curl -X POST http://localhost:3920/api/orders \
  ![alt text](./docs/mongodb-order.png)
 
 
-### MongoDB Considerations
-- If you're running MongoDB locally, ensure the MongoDB service is running before starting your microservice.
-- For cloud-based MongoDB (e.g., Atlas), ensure your IP is whitelisted and you've added your user credentials to the connection string in your `.env` file.
 
-### Additional Notes
-- MongoDB installation and running instructions might vary based on your operating system. Refer to official MongoDB documentation for specific details.
-- The connection string (`MONGODB_URI`) format for MongoDB Atlas will differ and include your username, password, and cluster details.
-- The `.env` file is crucial for configuring your application's environment variables without hardcoding sensitive information like database URIs.
 
-Following these steps should get your Order Processing microservice up and running, ready for development and testing.
 
 
