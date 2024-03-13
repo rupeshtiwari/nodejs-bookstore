@@ -28,7 +28,7 @@ const bookEvent = {
 };
 
 // Kafka topic to publish the event to
-const topic = 'book-events';
+const topic = 'bookEvents';
 
 // Call the function to publish the event
 publishEvent(topic, bookEvent)

@@ -93,6 +93,14 @@ Now, you can type messages into the producer terminal. Press Enter after each me
 
 This confirms that Kafka is running correctly on your macOS, and you're ready to use it for your event sourcing and messaging needs in your applications.
 
+
+Restart Services: Restart Zookeeper and Kafka services to resolve any transient issues:
+
+```bash
+brew services restart zookeeper
+brew services restart kafka
+```
+
 ### Directory Structure for Demo 3
 
 ```
@@ -116,7 +124,25 @@ event-sourcing-service/
 1.  **Ensure Kafka is Running**: Start your Kafka server and create the `bookEvents` topic if it hasn't been created yet.
 2.  **Install Dependencies**: Run `npm install` in the `event-sourcing-service` directory.
 3.  **Start the Service**: Execute `npm start` to run the service. It will listen for events on the Kafka topic and simulate updating a read model based on those events.
+4.  
 ![start service](./image.png)
+
 ### Testing and Expected Outcome
 
-To test, you can use the `BookEventStore.storeEvent` method to generate different types of book-related events, such as adding a new book review or updating inventory. The consumer (`readModelUpdater.js`) should log received events and simulate read model updates based on these events. This demonstrates a simplified event sourcing mechanism, where state changes are captured as events and processed to ensure consistency across the system.
+Open Terminal 2 and run below script: 
+```bash
+node ./test/simulateEvent.js
+```
+
+**output should be:**
+
+```js
+Received event: BOOK_ADDED {
+    bookId: '123',
+    title: 'The Adventure of Sherlock Holmes',
+    author: 'Arthur Conan Doyle'
+}
+```
+ 
+![output](./output.png)
+ 

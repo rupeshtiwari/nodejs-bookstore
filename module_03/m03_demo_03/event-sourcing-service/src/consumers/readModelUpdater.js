@@ -10,9 +10,13 @@ const updateReadModel = async () => {
 
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
-      const event = JSON.parse(message.value.toString());
-      console.log(`Received event: ${event.eventType}`, event.eventData);
-      // Update read model based on the event type and data
+      try {
+        const event = JSON.parse(message.value.toString());
+        console.log(`Received event: ${event.type}`, event.data);
+        // Process the event...
+      } catch (error) {
+        console.error(`Error processing message: ${error.message}`, error);
+      }
     },
   });
 };
