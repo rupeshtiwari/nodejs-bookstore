@@ -1,0 +1,17 @@
+upstream catalog_backend {
+    least_conn;  # Uses the least connections method for load balancing
+    server localhost:8081;  # First Catalog service instance
+    server localhost:8082;  # Second Catalog service instance
+    # Add more servers as needed.
+}
+
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://catalog_backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}

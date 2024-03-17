@@ -1,0 +1,14 @@
+{
+  "name": "catalog-service",
+  "version": "1.0.0",
+  "description": "Catalog service for BookStoreHub",
+  "main": "catalog-service.js",
+  "scripts": {
+    "start": "node catalog-service.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,27 @@
+# User directive is ignored by NGINX if it's started by non-root users (common in environments like macOS with Homebrew)
+# worker_processes directive defines the number of worker processes
+worker_processes auto;
+
+events {
+    worker_connections 1024; # The maximum number of simultaneous connections that can be opened by a worker process
+}
+
+http {
+    include       mime.types;  # Include file types configurations
+    default_type  application/octet-stream;
+
+    # Logging settings
+    access_log /opt/homebrew/var/log/nginx/access.log;
+    error_log  /opt/homebrew/var/log/nginx/error.log warn;
+
+    # Basic settings for sendfile, keepalive, and client body buffer size
+    sendfile        on;
+    keepalive_timeout  65;
+    client_max_body_size 16m; # Adjust as needed
+
+    # Load configuration files for the default server block.
+    include /opt/homebrew/etc/nginx/conf.d/*.conf;
+
+    # Load the server block configurations from sites-enabled directory
+    include /opt/homebrew/etc/nginx/sites-enabled/*;
+}

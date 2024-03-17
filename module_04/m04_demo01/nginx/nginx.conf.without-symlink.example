@@ -1,0 +1,26 @@
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    
+    # Load configurations
+    include /opt/homebrew/etc/nginx/conf.d/*.conf;
+    include /opt/homebrew/etc/nginx/sites-enabled/*;
+
+    upstream bookstore_backend {
+        least_conn;
+        server localhost:8081;
+        server localhost:8082;
+        # Add more servers as needed.
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://bookstore_backend;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+    }
+}

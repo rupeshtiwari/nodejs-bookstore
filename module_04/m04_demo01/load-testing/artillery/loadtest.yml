@@ -1,0 +1,10 @@
+config:
+  target: 'http://localhost'  # Target URL to load test
+  phases:
+    - duration: 60  # Test for 60 seconds
+      arrivalRate: 10  # 10 users arriving per second
+
+scenarios:
+  - flow:
+    - get:
+        url: "/"  # Assuming the root URL responds with the book catalog
