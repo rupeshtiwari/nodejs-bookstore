@@ -1,0 +1,22 @@
+{
+  "name": "book-catalog-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "loadTest.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mongodb": "^6.5.0",
+    "redis": "^4.6.13"
+  },
+  "dependencies": {
+    "body-parser": "^2.0.0-beta.2",
+    "express": "^5.0.0-beta.2",
+    "mongoose": "^8.2.2"
+  }
+}

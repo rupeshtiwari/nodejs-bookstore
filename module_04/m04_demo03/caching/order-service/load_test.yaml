@@ -1,0 +1,10 @@
+config:
+  target: 'http://localhost:3007'
+  phases:
+    - duration: 60
+      arrivalRate: 100 # Adjust the rate to simulate high load
+
+scenarios:
+  - flow:
+    - get:
+        url: "/orders/1" # Assuming an order with ID 1 exists

@@ -1,0 +1,13 @@
+config:
+  target: 'http://localhost:3008'
+  phases:
+    - duration: 60
+      arrivalRate: 100
+
+scenarios:
+  - flow:
+      - post:
+          url: "/create-order"
+          json:
+            productId: "{{ $randomInteger(1, 1000) }}"
+            quantity: "{{ $randomInteger(1, 10) }}"
