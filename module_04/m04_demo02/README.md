@@ -61,9 +61,4 @@ This demo operates in a development setup. For production, ensure high availabil
 
 Refer to the best practices we've discussed, such as lightweight health checks, centralized configuration, and graceful failure handling, to ensure your microservices architecture is robust and resilient.
 
-## Questions & Contributions
-
-For questions about this demo or to contribute to the project, please open an issue or pull request in this repository.
-
-Thank you for exploring advanced Node.js microservices with us!
  

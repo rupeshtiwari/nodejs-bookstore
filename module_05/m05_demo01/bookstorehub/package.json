@@ -1,0 +1,24 @@
+{
+  "name": "bookstorehub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "module-alias": "^2.2.3"
+  },
+  "_moduleAliases": {
+    "@common": "./src/common",
+    "@auth": "./src/common/auth",
+    "@accesscontrol": "./src/common/accesscontrol",
+    "@identity-provider": "./src/identity-provider/src",
+    "@book-management": "./src/services/book-management/src",
+    "@payment-service": "./src/services/payment-service/src"
+  }
+}
