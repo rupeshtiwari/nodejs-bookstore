@@ -19,7 +19,16 @@ curl "http://localhost:3020/api/books?search=NodeJS"
 
 # 2. Rate limiting demo:
 # Make 5 successful requests
-for i in {1..50}; do 
+for i in {1..4}; do 
+  curl "http://localhost:3020/api/books?search=NodeJS";
+  echo "";  # Add a newline for better readability
+done
+
+
+# Wait a moment (1min) here to simulate a pause in traffic
+
+# Then make additional requests to trigger rate limiting
+for i in {1..6}; do 
   curl "http://localhost:3020/api/books?search=NodeJS";
   echo "";  # Add a newline for better readability
 done

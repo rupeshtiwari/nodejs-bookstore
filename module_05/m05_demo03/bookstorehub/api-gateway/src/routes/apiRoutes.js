@@ -11,7 +11,7 @@ const router = Router();
 // Proxy configuration for the book service
 router.use(
   '/books',
-  ...validateSearchParams,
+  validateSearchParams,
   rateLimiter,
   threatDetection,
   createProxyMiddleware({
@@ -25,7 +25,7 @@ router.use(
 router.use(
   '/payment',
   rateLimiter,
-  threatDetection, // Apply threat detection middleware
+  threatDetection,
   createProxyMiddleware({
     target: 'http://localhost:3012', // Target host for payment service
     changeOrigin: true, // for virtual hosted sites
