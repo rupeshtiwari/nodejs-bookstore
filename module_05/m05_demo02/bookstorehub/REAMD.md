@@ -1,34 +1,28 @@
 
-Bookstrehub/
+BookStoreHub/
 │
-├──src/
+├── src/
+│   ├── common/                       # Shared utilities and configurations
+│   ├── identity-provider/            # Centralized Identity Provider for JWT
+│   └── services/                     # Individual Microservices
+│       ├── book-management/          # Handles book-related operations
+│       └── payment-service/          # Processes payments
 │
-├── identity-provider/        # Centralized Identity Provider for JWT-based authentication
-│   ├── src/
-│   │   ├── auth/
-│   │   │   └── jwtAuth.js    # JWT generation and verification
-│   │   └── routes/
-│   │       └── authRoutes.js # Login route for JWT issuance
+├── api-gateway/                      # New API Gateway service
+│   ├── src/                          # Source files for the API Gateway
+│   │   ├── middlewares/              # Custom middlewares, like rate limiter
+│   │   ├── routes/                   # Route definitions and handlers
+│   │   ├── server.js                 # Entry point for the API Gateway
+│   │   └── config.js                 # Configuration files (if necessary)
+│   ├── node_modules/                 # Local npm dependencies
+│   ├── package.json                  # NPM package file
+│   └── package-lock.json             # Locked versions of npm dependencies
 │
-├── services/
-│   ├── book-management/      # Book management service with RBAC
-│   │   ├── src/
-│   │   │   ├── middleware/
-│   │   │   │   └── rbac.js   # Middleware for enforcing RBAC
-│   │   │   └── routes/
-│   │   │       └── bookRoutes.js
-│   │
-│   └── payment-service/      # Simulated external payment service for OAuth2.0
-│       ├── src/
-│       │   └── oauth/
-│       │       └── oauthServer.js # OAuth2.0 setup and token issuance
-│
-└── common/                   # Shared libraries for AuthN & AuthZ utilities
-    ├── auth/
-    │   ├── jwtVerify.js      # JWT verification utility used by services
-    │   └── oauthClient.js    # OAuth client setup (for demonstration)
-    └── accesscontrol/
-        └── roles.js          # Access control definitions
+├── .env                              # Environment variables file
+├── architecture.png                  # Architecture diagram image file
+├── demo_authn.png                    # Authentication demo image file
+└── demo_payment.png                  # Payment demo image file
+
 
 
 
