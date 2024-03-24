@@ -159,7 +159,7 @@ To securely authenticate a user attempting to log in to BookStoreHub and generat
 
 ```bash
 # 1. run identity provider server
-  cd bookstorehub/src/identity-provider
+  cd  ~/Code/rupeshtiwari/sourcecode_pluralsight_course/bookstore/module_05/m05_demo01/bookstorehub/src/identity-provider
   node ./src/server.js 
 
 
@@ -182,7 +182,8 @@ To securely authenticate a user attempting to log in to BookStoreHub and generat
 
 ```bash
 # 1. run book managemenr server
-cd bookstorehub/src/services/book-management
+cd ~/Code/rupeshtiwari/sourcecode_pluralsight_course/bookstore/module_05/m05_demo01/bookstorehub/src/services/book-management
+
 node ./src/server.js  
 
 # 2. Get book api without token 
@@ -195,7 +196,7 @@ curl -X GET http://localhost:3011/api/books/details/1 \
 # 4. Get book api with token 
  
 curl -X GET http://localhost:3011/api/books/details/1 \
--H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNzExMjI2MDI3LCJleHAiOjE3MTEyMjk2Mjd9.5wVMTw8Lgxr-Rv4W1Ubkd9QOMQ7j86cHOvYXQc6G-VY"
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNzExMjM5MDUwLCJleHAiOjE3MTEyNDI2NTB9.fs5pHBgA2ckIiQnRPjTEOXR8oIYo73y1ihiVCYsto1s"
 
 # 5. Success output in console
 {"id":1,"title":"Node.js Microservices","author":"Jane Doe"}
@@ -235,11 +236,13 @@ To authorize a third-party payment service to access user payment information wi
 
 ```bash
  # 1. run identity provider server
-  cd bookstorehub/src/identity-provider
+  cd ~/Code/rupeshtiwari/sourcecode_pluralsight_course/bookstore/module_05/m05_demo01/bookstorehub/src/identity-provider
+
   node ./src/server.js 
   
  # 2. run payment server
-  cd bookstorehub/src/services/payment-service
+  cd ~/Code/rupeshtiwari/sourcecode_pluralsight_course/bookstore/module_05/m05_demo01/bookstorehub/src/services/payment-service
+
   node ./src/server.js 
 
   # 3. login
@@ -253,7 +256,7 @@ To authorize a third-party payment service to access user payment information wi
 # 5. Make Payment call
 curl -X POST http://localhost:3012/api/pay \
 -H "Content-Type: application/json" \
--H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNzExMjI4NjY4LCJleHAiOjE3MTEyMzIyNjh9.t6KgtmNb6_NScmj2Nt1pp8oXsXnUXOyIwD5GRt-pj8A" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNzExMjM5NTc5LCJleHAiOjE3MTEyNDMxNzl9.AqUiw865EAm8HCw0qdPX0QYRqFNqrcHxDZhxykuSy_0" \
 -d '{"bookId":"123", "cost":10}'
 
  # 6. Watch console for successful payment message
