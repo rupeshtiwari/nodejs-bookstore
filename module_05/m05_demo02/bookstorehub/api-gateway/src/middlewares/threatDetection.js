@@ -1,11 +1,17 @@
 const { validationResult, check } = require('express-validator');
 
-// Middleware for validating query parameters
+// Middleware for validating and sanitizing query parameters
 const validateSearchParams = [
   check('search')
-    .isAlphanumeric()
-    .withMessage('Search term must be alphanumeric'),
-  // Add other validations as needed
+    // Extend validation to allow spaces in addition to alphanumeric characters
+    .matches(/^[a-zA-Z0-9 ]+$/)
+    .withMessage('Search term must be alphanumeric and can include spaces')
+
+    // Use the trim() method to remove leading and trailing spaces
+    .trim()
+
+    // Use the escape() method to remove/escape special characters
+    .escape()
 ];
 
 const threatDetection = (req, res, next) => {

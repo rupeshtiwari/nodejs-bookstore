@@ -25,8 +25,9 @@ for i in {1..50}; do
 done
 
 
-# 3. Threat Detection Demo:
-curl -s "http://localhost:3020/api/books?search=%27OR%271%27=%271" | jq
+# 3. Threat Detection Demo: SQL Injection 
+curl -s "http://localhost:3020/api/books/search?search='OR%20'1'='1" | jq
+
 
 # output 
 {
@@ -41,6 +42,11 @@ curl -s "http://localhost:3020/api/books?search=%27OR%271%27=%271" | jq
   ]
 } 
 
+The specific query part search=' OR '1'='1 is a classic SQL injection technique. If the input is not properly sanitized and is directly used in a SQL command, it could lead to a situation where the SQL command is altered in such a way that it always evaluates to true because '1'='1 is a logical condition that always returns true. For example, in an unsanitized scenario, a SQL query constructed like this:
+
+SELECT * FROM books WHERE title = '' OR '1'='1'
+
+The condition '1'='1' will always be true, potentially returning all records from the books table, thereby bypassing any intended filtering based on the search parameter. This could expose sensitive information or be used as a stepping stone for more severe attacks.
 ```
 
 
