@@ -1,0 +1,40 @@
+name: CI/CD Pipeline to AWS EKS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build and push Docker image to Amazon ECR
+        run: |
+          ECR_REGISTRY="${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com"
+          IMAGE_URI="${ECR_REGISTRY}/my-auth-service:${GITHUB_SHA}"
+          docker build -t $IMAGE_URI .
+          docker push $IMAGE_URI
+
+      - name: Replace image in Kubernetes deployment
+        run: |
+          sed -i "s|<ECR_URI>|${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com|g" ./deploy/base/k8s-deployment.yaml
+          sed -i "s|<IMAGE_TAG>|${GITHUB_SHA}|g" ./deploy/base/k8s-deployment.yaml
+
+      - name: Deploy to Amazon EKS
+        run: |
+          eksctl utils write-kubeconfig --cluster my-auth-service-cluster --region ${{ secrets.AWS_REGION }}
+          kubectl apply -f ./deploy/base/k8s-deployment.yaml

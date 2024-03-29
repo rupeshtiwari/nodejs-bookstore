@@ -1,0 +1,22 @@
+# deploy/minikube/k8s-deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      labels:
+        app: auth-service
+    spec:
+      containers:
+      - name: auth-service
+        image: my-auth-service:latest  # Assuming you build this image in Minikube's Docker environment
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3001
