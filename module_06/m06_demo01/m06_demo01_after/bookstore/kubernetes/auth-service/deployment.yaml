@@ -1,5 +1,3 @@
-# deploy/eks/k8s-deployment.yaml
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,7 +13,7 @@ spec:
         app: auth-service
     spec:
       containers:
-      - name: auth-service
-        image: 423735920800.dkr.ecr.us-east-1.amazonaws.com/my-auth-service:latest
-        ports:
-        - containerPort: 3001
+        - name: auth-service
+          image: my-auth-service:latest
+          ports:
+            - containerPort: 3001

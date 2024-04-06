@@ -28,6 +28,13 @@ app.post('/login', (req, res) => {
 });
 
 // Other endpoints representing different parts of the monolith would go here
+app.get('/books', (req, res) => {
+  // Logic to return a list of books
+  res.json([
+    { id: 1, title: 'Book One' },
+    { id: 2, title: 'Book Two' },
+  ]);
+});
 app.get('/', (req, res) => {
   res.send('Welcome to BookStoreHub!');
 });
