@@ -2,7 +2,7 @@
 FROM node:14
 
 # Set the working directory in the container
-WORKDIR /usr/src/auth_service
+WORKDIR /usr/src/auth-service
 
 # Copy the package.json and package-lock.json
 COPY package*.json ./

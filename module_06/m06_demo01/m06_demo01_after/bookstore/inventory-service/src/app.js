@@ -18,7 +18,7 @@ app.get('/books', (req, res) => {
 // ... other routes and logic for BookStoreHub
 
 // Define the port for the main application
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
   console.log(`BookStoreHub app listening on port ${PORT}`);
 });

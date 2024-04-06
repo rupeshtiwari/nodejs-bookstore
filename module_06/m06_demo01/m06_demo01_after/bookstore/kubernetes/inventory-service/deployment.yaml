@@ -15,5 +15,6 @@ spec:
       containers:
         - name: inventory-service
           image: inventory-service:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3002

@@ -1,72 +1,99 @@
-Based on your instructions and the directory structure shown in the attachment, I'll provide an overview of how to revise the demo steps for Module 6.
+
+
+### Module 6 Demo : Implementing Strangler Pattern with Kubernetes and Docker
+
+#### Prerequisites:
+- Minikube installed and running.
+- Docker installed and running.
+- kubectl installed.
+
+#### Overview:
+This demo showcases the deployment of an Authentication service and an Inventory service as separate microservices using Kubernetes on Minikube. By employing port forwarding, we simulate the effect of the Strangler Pattern, enabling gradual migration from a monolithic architecture to microservices.
+
+#### Steps:
 
 ### Step 1: Start Minikube
+Ensure Minikube is running.
 ```bash
 minikube start
 ```
 
 ### Step 2: Build Docker Images Locally in Minikube's Docker Environment
+Before building your Docker images, switch to Minikube's Docker environment:
 ```bash
 eval $(minikube -p minikube docker-env)
-
+```
+Build the Docker images for both the Authentication service and the Inventory service:
+```bash
+# Navigate to /module_06/m06_demo01/m06_demo01_after/bookstore/
+# Build Auth Service Docker Image
 cd auth-service
 docker build -t my-auth-service:latest .
 
+# Build Inventory Service Docker Image
 cd ../inventory-service
 docker build -t inventory-service:latest .
 ```
 
-### Step 3: Deploy Auth and Inventory Services to Minikube
+### Step 3: Deploy Services to Minikube
+Deploy both services using their Kubernetes manifests:
 ```bash
-cd kubernetes/auth-service
-kubectl apply -f deployment.yaml -f service.yaml
+# Deploy Auth Service
+cd .. 
+kubectl apply -f kubernetes/auth-service/deployment.yaml
+kubectl apply -f kubernetes/auth-service/service.yaml
 
-cd ../inventory-service
-kubectl apply -f deployment.yaml -f service.yaml
+# Deploy Inventory Service
+kubectl apply -f kubernetes/inventory-service/deployment.yaml
+kubectl apply -f kubernetes/inventory-service/service.yaml
 ```
 
-### Step 4: Configure Ingress to Route Traffic Appropriately
-Ensure the Ingress resource is defined to route traffic to the correct service. Place the `ingress.yaml` in the `kubernetes` directory.
+### Step 4: Port Forwarding for Direct Access
+Instead of configuring Ingress, use port forwarding to access the services directly for this demo:
 ```bash
-cd ..
-kubectl apply -f ingress.yaml
+# Port Forward Auth Service
+kubectl port-forward svc/auth-service 3001:3001 &
+
+# Port Forward Inventory Service
+kubectl port-forward svc/inventory-service 3002:3002 &
 ```
 
-### Step 5: Enable Ingress Addon in Minikube
+### Step 5: Access and Test Services
+Test the Authentication service login endpoint:
+
 ```bash
-minikube addons enable ingress
+curl -X POST http://localhost:3001/login -H "Content-Type: application/json" -d '{"username": "user1", "password": "pass1"}'
+
+# output
+Handling connection for 3001
+{"message":"Login successful!","userId":1}
+ 
+
+# Test the Inventory service books endpoint:
+curl http://localhost:3002/books
+
+# output 
+[{"id":1,"title":"Book One"},{"id":2,"title":"Book Two"}]  
 ```
 
-### Step 6: Access Services via Minikube Ingress IP
-```bash
-minikube ip  # Assume this returns 192.168.49.2
-```
+#### Strangler Pattern:
+- **Before**: Initially, both login and book listing functionalities were part of a monolithic application running on a single port.
+- **After**: With the Strangler Pattern, we've successfully migrated the login functionality to a separate Authentication microservice, while the Inventory service handles book listings. Both are now running independently and can be accessed through their respective ports, simulating the process of gradually strangling the monolithic application.
 
-Test Auth Service Login:
-```bash
-curl -X POST http://192.168.49.2/login -H "Content-Type: application/json" -d '{"username": "user1", "password": "pass1"}'
-```
+#### What We Achieved:
+- Demonstrated the separation of concerns by splitting the monolithic application into microservices.
+- Simplified deployment and scaling of individual services.
+- Enabled independent development and deployment cycles for each microservice.
 
-Test Inventory Service Books:
-```bash
-curl http://192.168.49.2/books
-```
+#### Next Steps:
+- Implement API Gateway to manage service routing and unify access points.
+- Explore service discovery mechanisms for dynamically locating services within the cluster.
+- Integrate Continuous Integration/Continuous Deployment (CI/CD) pipelines for automated testing and deployment.
 
-### Cleanup
-```bash
-kubectl delete -f kubernetes/auth-service/deployment.yaml
-kubectl delete -f kubernetes/auth-service/service.yaml
+#### Best Practices:
+- Keep each microservice focused on a single responsibility.
+- Use Kubernetes liveness and readiness probes for health checks.
+- Ensure proper resource limits and requests are set for each pod.
+- Adopt a GitOps workflow for Kubernetes resource management.
 
-kubectl delete -f kubernetes/inventory-service/deployment.yaml
-kubectl delete -f kubernetes/inventory-service/service.yaml
-
-kubectl delete -f kubernetes/ingress.yaml
-
-docker rmi my-auth-service:latest
-docker rmi inventory-service:latest
-
-minikube stop
-```
-
-Please adjust the Docker image names (`my-auth-service:latest`, `inventory-service:latest`) as per the actual image tags you have used during the Docker build process. The `kubectl` commands assume that the corresponding `deployment.yaml` and `service.yaml` files exist at the specified paths.
  
